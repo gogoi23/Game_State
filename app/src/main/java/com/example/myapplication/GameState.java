@@ -44,15 +44,33 @@ public class GameState {
 
     }
 
-    public GameState (Piece[] p1Pieces,Piece[] p2Pieces,int p1NumPieces,
-    int p2NumPieces,int turn){
+    public GameState (GameState current){
+        this.p1Pieces = new Piece[12];
+        this.p2Pieces = new Piece[12];
+        this.p1Pieces = current.p1Pieces.clone();
+        this.p2Pieces = current.p2Pieces.clone();
 
-        this.p1Pieces = p1Pieces;
-        this.p2Pieces = p2Pieces;
-        this.p1NumPieces = p1NumPieces;
-        this.p2NumPieces = p2NumPieces;
-        this.turn = turn;
+        this.p2Pieces = current.p2Pieces.clone();
+        this.p1NumPieces = current.p1NumPieces;
+        this.p2NumPieces = current.p2NumPieces;
+        this.turn = current.turn;
 
+        /*for(int i = 0;i<12;i++){
+            int newxCord1 = current.p1Pieces[i].xCord;
+            int newyCord1 = current.p1Pieces[i].yCord;
+            boolean newLife1 = current.p1Pieces[i].isAlive;
+            boolean newKing1 = current.p1Pieces[i].isKing;
+
+            this.p1Pieces[i] = new Piece(newxCord1,newyCord1,newLife1,newKing1);
+
+            int newxCord2 = current.p2Pieces[i].xCord;
+            int newyCord2 = current.p2Pieces[i].yCord;
+            boolean newLife2 = current.p2Pieces[i].isAlive;
+            boolean newKing2 = current.p2Pieces[i].isKing;
+            this.p2Pieces[i] = new Piece(newxCord2,newyCord2,newLife2,newKing2);
+
+
+        }*/
     }
 
 

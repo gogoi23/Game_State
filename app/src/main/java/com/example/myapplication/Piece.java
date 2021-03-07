@@ -11,4 +11,11 @@ public class Piece {
         isAlive = true;
         isKing = false;
     }
+
+    public Piece(int xCord,int yCord,boolean isALive,boolean isKing){
+        this.xCord = xCord;
+        this.yCord = yCord;
+        this.isAlive = isALive;
+        this.isKing = isKing;
+    }
 }
