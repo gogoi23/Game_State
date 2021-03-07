@@ -1,7 +1,5 @@
 package com.example.myapplication;
 
-import java.util.ArrayList;
-
 public class GameState {
     public Piece[] p1Pieces;
     public Piece[] p2Pieces;
