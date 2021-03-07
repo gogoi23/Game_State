@@ -45,15 +45,15 @@ public class GameState {
     }
 
     public GameState (GameState current){
-        this.p1Pieces = new Piece[12];
-        this.p2Pieces = new Piece[12];
-        this.p1Pieces = current.p1Pieces.clone();
-        this.p2Pieces = current.p2Pieces.clone();
+        current.p1Pieces = new Piece[12];
+        current.p2Pieces = new Piece[12];
+        current.p1Pieces = this.p1Pieces.clone();
+        current.p2Pieces = this.p2Pieces.clone();
 
-        this.p2Pieces = current.p2Pieces.clone();
-        this.p1NumPieces = current.p1NumPieces;
-        this.p2NumPieces = current.p2NumPieces;
-        this.turn = current.turn;
+        current.p2Pieces = this.p2Pieces.clone();
+        current.p1NumPieces = this.p1NumPieces;
+        current.p2NumPieces = this.p2NumPieces;
+        current.turn = this.turn;
 
         /*for(int i = 0;i<12;i++){
             int newxCord1 = current.p1Pieces[i].xCord;

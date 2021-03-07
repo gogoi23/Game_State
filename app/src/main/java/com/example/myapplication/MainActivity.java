@@ -23,7 +23,7 @@ public class MainActivity extends AppCompatActivity {
         first.turn = 4;
         second.p2NumPieces = 4;
 
-        Button editText = (Button)findViewById(R.id.runTest);
+        Button editText = (Button)findViewById(R.id.gameStateTest);
         editText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
