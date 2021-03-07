@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -23,17 +24,19 @@ public class MainActivity extends AppCompatActivity {
         first.turn = 4;
         second.p2NumPieces = 67;
 
+        EditText gameState = (EditText)findViewById(R.id.stateDescription);
+
         Button editText = (Button)findViewById(R.id.gameStateTest);
         editText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 System.out.println("hello");
-                Log.e("info" , "First p2 xcord = " + first.p2Pieces[0].xCord);
-                Log.e("info" , "second p1 xcord = " + second.p2Pieces[0].xCord);
-                Log.e("info" , "first turn = " + first.turn);
-                Log.e("info" , "second turn = " + second.turn);
-                Log.e("info","first.p1NumPieces = " + first.p2NumPieces);
-                Log.e("info","second.p1NumPieces = " + second.p2NumPieces);
+                gameState.append("First p2 xcord = " + first.p2Pieces[0].xCord);
+                gameState.append("second p1 xcord = " + second.p2Pieces[0].xCord);
+                gameState.append( "first turn = " + first.turn);
+                gameState.append("second turn = " + second.turn);
+                gameState.append("first.p1NumPieces = " + first.p2NumPieces);
+                gameState.append("second.p1NumPieces = " + second.p2NumPieces);
             }
         });
 
