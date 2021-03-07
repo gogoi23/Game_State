@@ -47,6 +47,7 @@ public class GameState {
     public GameState (GameState current){
         this.p1Pieces = new Piece[12];
         this.p2Pieces = new Piece[12];
+
         this.p1Pieces = current.p1Pieces.clone();
         this.p2Pieces = current.p2Pieces.clone();
 
