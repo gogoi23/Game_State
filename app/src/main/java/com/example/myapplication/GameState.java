@@ -1,0 +1,60 @@
+package com.example.myapplication;
+
+import java.util.ArrayList;
+
+public class GameState {
+    public Piece[] p1Pieces;
+    public Piece[] p2Pieces;
+    public int p1NumPieces;
+    public int p2NumPieces;
+    public int turn;
+
+    public GameState(){
+        turn = 1;
+        p1NumPieces = 12;
+        p2NumPieces = 12;
+
+        p1Pieces = new Piece[12];
+        p1Pieces[0] = new Piece(1,1);
+        p1Pieces[1] = new Piece(3,1);
+        p1Pieces[2] = new Piece(5,1);
+        p1Pieces[3] = new Piece(7,1);
+        p1Pieces[4] = new Piece(2,2);
+        p1Pieces[5] = new Piece(4,2);
+        p1Pieces[6] = new Piece(6,2);
+        p1Pieces[7] = new Piece(8,2);
+        p1Pieces[8] = new Piece(7,3);
+        p1Pieces[9] = new Piece(5,3);
+        p1Pieces[10] = new Piece(3,3);
+        p1Pieces[11] = new Piece(1,3);
+
+        p2Pieces = new Piece[12];
+        p2Pieces[0] = new Piece(2,6);
+        p2Pieces[1] = new Piece(4,6);
+        p2Pieces[2] = new Piece(6,6);
+        p2Pieces[3]= new Piece(8,6);
+        p2Pieces[4] = new Piece(1,7);
+        p2Pieces[5] = new Piece(3,7);
+        p2Pieces[6] = new Piece(5,7);
+        p2Pieces[7] = new Piece(7,7);
+        p2Pieces[8] = new Piece(2,8);
+        p2Pieces[9] = new Piece(4,8);
+        p2Pieces[10] = new Piece(6,8);
+        p2Pieces[11] = new Piece(8,8);
+
+    }
+
+    public GameState (Piece[] p1Pieces,Piece[] p2Pieces,int p1NumPieces,
+    int p2NumPieces,int turn){
+
+        this.p1Pieces = p1Pieces;
+        this.p2Pieces = p2Pieces;
+        this.p1NumPieces = p1NumPieces;
+        this.p2NumPieces = p2NumPieces;
+        this.turn = turn;
+
+    }
+
+
+
+}
