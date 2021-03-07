@@ -1,5 +1,7 @@
 package com.example.myapplication;
 
+import java.util.ArrayList;
+
 public class GameState {
     public Piece[] p1Pieces;
     public Piece[] p2Pieces;
@@ -53,7 +55,7 @@ public class GameState {
         this.p2NumPieces = current.p2NumPieces;
         this.turn = current.turn;
 
-        /*for(int i = 0;i<12;i++){
+        for(int i = 0;i<12;i++){
             int newxCord1 = current.p1Pieces[i].xCord;
             int newyCord1 = current.p1Pieces[i].yCord;
             boolean newLife1 = current.p1Pieces[i].isAlive;
@@ -67,8 +69,7 @@ public class GameState {
             boolean newKing2 = current.p2Pieces[i].isKing;
             this.p2Pieces[i] = new Piece(newxCord2,newyCord2,newLife2,newKing2);
 
-
-        }*/
+        }
     }
 
 

@@ -21,7 +21,7 @@ public class MainActivity extends AppCompatActivity {
 
         first.p2Pieces[0].xCord = 5;
         first.turn = 4;
-        second.p2NumPieces = 4;
+        second.p2NumPieces = 67;
 
         Button editText = (Button)findViewById(R.id.gameStateTest);
         editText.setOnClickListener(new View.OnClickListener() {
