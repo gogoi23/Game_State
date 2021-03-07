@@ -45,22 +45,20 @@ public class GameState {
     }
 
     public GameState (GameState current){
-        current.p1Pieces = new Piece[12];
-        current.p2Pieces = new Piece[12];
-        current.p1Pieces = this.p1Pieces.clone();
-        current.p2Pieces = this.p2Pieces.clone();
+        this.p1Pieces = new Piece[12];
+        this.p2Pieces = new Piece[12];
+        //this.p1Pieces = current.p1Pieces.clone();
+        //this.p2Pieces = current.p2Pieces.clone();
 
-        current.p2Pieces = this.p2Pieces.clone();
-        current.p1NumPieces = this.p1NumPieces;
-        current.p2NumPieces = this.p2NumPieces;
-        current.turn = this.turn;
+        this.p1NumPieces = current.p1NumPieces;
+        this.p2NumPieces = current.p2NumPieces;
+        this.turn = current.turn;
 
-        /*for(int i = 0;i<12;i++){
+        for(int i = 0;i<12;i++){
             int newxCord1 = current.p1Pieces[i].xCord;
             int newyCord1 = current.p1Pieces[i].yCord;
             boolean newLife1 = current.p1Pieces[i].isAlive;
             boolean newKing1 = current.p1Pieces[i].isKing;
-
             this.p1Pieces[i] = new Piece(newxCord1,newyCord1,newLife1,newKing1);
 
             int newxCord2 = current.p2Pieces[i].xCord;
@@ -69,8 +67,7 @@ public class GameState {
             boolean newKing2 = current.p2Pieces[i].isKing;
             this.p2Pieces[i] = new Piece(newxCord2,newyCord2,newLife2,newKing2);
 
-
-        }*/
+        }
     }
 
 
