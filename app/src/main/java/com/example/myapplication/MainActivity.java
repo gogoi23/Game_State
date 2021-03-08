@@ -31,12 +31,12 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 System.out.println("hello");
-                gameState.append("First p2 xcord = " + first.p2Pieces[0].xCord);
-                gameState.append("second p1 xcord = " + second.p2Pieces[0].xCord);
-                gameState.append( "first turn = " + first.turn);
-                gameState.append("second turn = " + second.turn);
-                gameState.append("first.p1NumPieces = " + first.p2NumPieces);
-                gameState.append("second.p1NumPieces = " + second.p2NumPieces);
+                gameState.append("First p2 xcord = " + first.p2Pieces[0].xCord + "\n");
+                gameState.append("second p1 xcord = " + second.p2Pieces[0].xCord + "\n");
+                gameState.append( "first turn = " + first.turn + "\n");
+                gameState.append("second turn = " + second.turn + "\n");
+                gameState.append("first.p1NumPieces = " + first.p2NumPieces + "\n");
+                gameState.append("second.p1NumPieces = " + second.p2NumPieces + "\n");
             }
         });
 
