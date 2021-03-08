@@ -19,7 +19,7 @@ public class MainActivity extends AppCompatActivity {
         GameState first = new GameState();
         GameState second = new GameState(first);
 
-        first.p2Pieces[0].xCord = 5;
+        first.p2Pieces[4].xCord = 34;
         first.turn = 4;
         second.p2NumPieces = 67;
 
@@ -28,8 +28,8 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 System.out.println("hello");
-                Log.e("info" , "First p2 xcord = " + first.p2Pieces[0].xCord);
-                Log.e("info" , "second p1 xcord = " + second.p2Pieces[0].xCord);
+                Log.e("info" , "First p2 xcord = " + first.p2Pieces[4].xCord);
+                Log.e("info" , "second p1 xcord = " + second.p2Pieces[4].xCord);
                 Log.e("info" , "first turn = " + first.turn);
                 Log.e("info" , "second turn = " + second.turn);
                 Log.e("info","first.p1NumPieces = " + first.p2NumPieces);

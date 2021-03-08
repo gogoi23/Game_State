@@ -47,29 +47,70 @@ public class GameState {
     public GameState (GameState current){
         this.p1Pieces = new Piece[12];
         this.p2Pieces = new Piece[12];
-        //this.p1Pieces = current.p1Pieces.clone();
-        //this.p2Pieces = current.p2Pieces.clone();
 
         this.p1NumPieces = current.p1NumPieces;
         this.p2NumPieces = current.p2NumPieces;
         this.turn = current.turn;
 
         for(int i = 0;i<12;i++){
-            int newxCord1 = current.p1Pieces[i].xCord;
-            int newyCord1 = current.p1Pieces[i].yCord;
-            boolean newLife1 = current.p1Pieces[i].isAlive;
-            boolean newKing1 = current.p1Pieces[i].isKing;
-            this.p1Pieces[i] = new Piece(newxCord1,newyCord1,newLife1,newKing1);
 
-            int newxCord2 = current.p2Pieces[i].xCord;
-            int newyCord2 = current.p2Pieces[i].yCord;
-            boolean newLife2 = current.p2Pieces[i].isAlive;
-            boolean newKing2 = current.p2Pieces[i].isKing;
-            this.p2Pieces[i] = new Piece(newxCord2,newyCord2,newLife2,newKing2);
+            this.p1Pieces[i] = new Piece(current.p1Pieces[i].xCord,current.p1Pieces[i].yCord,
+            current.p1Pieces[i].isAlive,current.p1Pieces[i].isKing);
+
+
+            this.p2Pieces[i] = new Piece(current.p2Pieces[i].xCord,current.p2Pieces[i].yCord,
+            current.p2Pieces[i].isAlive,current.p2Pieces[i].isKing);
 
         }
     }
 
 
+    public boolean move(Piece piece,int turn,boolean direction){
+        boolean valid = true;
+        return valid;
+
+    }
+
+    public boolean validMove(int turn,boolean direction, Piece piece){
+        boolean valid = true;
+        if(direction == true){
+            if(turn == 1){
+                if(piece.isKing == false){
+                    //if(y == 1){
+
+                    //}
+                }
+            }
+        }
+        return valid;
+    }
+
+    public boolean inBounds(int newXCord,int newYCord){
+        boolean valid = true;
+
+        if(newXCord>9 || newYCord>9 || newXCord<1 || newYCord<1){
+            valid = false;
+        }
+
+        return valid;
+
+    }
+
+
 
 }
+
+//this is the old code for deep copying the array of pieces. we might need it later
+// int newxCord2 = current.p2Pieces[i].xCord;
+// int newyCord2 = current.p2Pieces[i].yCord;
+// boolean newLife2 = current.p2Pieces[i].isAlive;
+// boolean newKing2 = current.p2Pieces[i].isKing;
+
+//this.p2Pieces[i] = new Piece(newxCord2,newyCord2,newLife2,newKing2);
+
+//int newxCord1 = current.p1Pieces[i].xCord;
+//int newyCord1 = current.p1Pieces[i].yCord;
+//boolean newLife1 = current.p1Pieces[i].isAlive;
+//boolean newKing1 = current.p1Pieces[i].isKing;
+
+//this.p1Pieces[i] = new Piece(newxCord1,newyCord1,newLife1,newKing1);
