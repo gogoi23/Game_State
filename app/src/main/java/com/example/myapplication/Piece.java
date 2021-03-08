@@ -19,4 +19,6 @@ public class Piece {
         this.isAlive = isALive;
         this.isKing = isKing;
     }
+
+
 }

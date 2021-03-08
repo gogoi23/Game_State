@@ -48,6 +48,9 @@ public class GameState {
         this.p1Pieces = new Piece[12];
         this.p2Pieces = new Piece[12];
 
+        this.p1Pieces = current.p1Pieces;
+        this.p2Pieces = current.p2Pieces;
+
         this.p1NumPieces = current.p1NumPieces;
         this.p2NumPieces = current.p2NumPieces;
         this.turn = current.turn;
