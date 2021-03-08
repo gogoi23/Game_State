@@ -26,8 +26,8 @@ public class MainActivity extends AppCompatActivity {
 
         EditText gameState = (EditText)findViewById(R.id.stateDescription);
 
-        Button editText = (Button)findViewById(R.id.gameStateTest);
-        editText.setOnClickListener(new View.OnClickListener() {
+        Button testRun = (Button)findViewById(R.id.gameStateTest);
+        testRun.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 System.out.println("hello");
