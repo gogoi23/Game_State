@@ -30,7 +30,7 @@ public class MainActivity extends AppCompatActivity {
         testRun.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                System.out.println("hello");
+                gameState.append("Welcome to Checkers.\n");
                 gameState.append("First p2 xcord = " + first.p2Pieces[0].xCord + "\n");
                 gameState.append("second p1 xcord = " + second.p2Pieces[0].xCord + "\n");
                 gameState.append( "first turn = " + first.turn + "\n");

@@ -55,7 +55,7 @@ public class GameState {
         this.p2NumPieces = current.p2NumPieces;
         this.turn = current.turn;
 
-        for(int i = 0;i<12;i++){
+        for(int i = 0; i < 12; i++){
             int newxCord1 = current.p1Pieces[i].xCord;
             int newyCord1 = current.p1Pieces[i].yCord;
             boolean newLife1 = current.p1Pieces[i].isAlive;
