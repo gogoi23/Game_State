@@ -11,7 +11,7 @@ public class GameState {
     public int turn;
 
     public GameState(){
-        turn = 2;
+        turn = 1;
         p1NumPieces = 12;
         p2NumPieces = 12;
 
