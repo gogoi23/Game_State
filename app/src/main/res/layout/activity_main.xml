@@ -8,9 +8,10 @@
 
     <EditText
         android:id="@+id/stateDescription"
-        android:layout_width="match_parent"
-        android:layout_height="714dp"
-        android:layout_marginBottom="8dp"
+        android:layout_width="735dp"
+        android:layout_height="331dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginBottom="24dp"
         android:ems="10"
         android:gravity="start|top"
         android:inputType="textMultiLine"
@@ -20,7 +21,6 @@
         android:textSize="24sp"
         app:layout_constraintBottom_toTopOf="@+id/gameStateTest"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -28,8 +28,8 @@
         android:id="@+id/gameStateTest"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginEnd="32dp"
+        android:layout_marginStart="313dp"
+        android:layout_marginEnd="313dp"
         android:layout_marginBottom="16dp"
         android:text="@string/runtest"
         app:layout_constraintBottom_toBottomOf="parent"
