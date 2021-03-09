@@ -20,7 +20,7 @@ public class MainActivity extends AppCompatActivity {
         GameState second = new GameState(first);
 
         first.p2Pieces[0].xCord = 5;
-        first.turn = 4;
+        first.turn = 2;
         second.p2NumPieces = 67;
 
         Button editText = (Button)findViewById(R.id.gameStateTest);
@@ -34,6 +34,8 @@ public class MainActivity extends AppCompatActivity {
                 Log.e("info" , "second turn = " + second.turn);
                 Log.e("info","first.p1NumPieces = " + first.p2NumPieces);
                 Log.e("info","second.p1NumPieces = " + second.p2NumPieces);
+
+                System.out.println(first.toString());
             }
         });
 
