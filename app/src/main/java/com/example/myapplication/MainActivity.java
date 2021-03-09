@@ -14,7 +14,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         setContentView(R.layout.activity_main);
 
         GameState first = new GameState();
@@ -32,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 gameState.append("Welcome to Checkers.\n");
                 gameState.append("First p2 xcord = " + first.p2Pieces[0].xCord + "\n");
-                gameState.append("second p1 xcord = " + second.p2Pieces[0].xCord + "\n");
+                gameState.append("second p2 xcord = " + second.p2Pieces[0].xCord + "\n");
                 gameState.append( "first turn = " + first.turn + "\n");
                 gameState.append("second turn = " + second.turn + "\n");
                 gameState.append("first.p1NumPieces = " + first.p2NumPieces + "\n");
