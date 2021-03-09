@@ -46,27 +46,32 @@ public class GameState {
         p2Pieces[11] = new Piece(8,8);
     }
 
+    //deep copy constructor of GameState
     public GameState (GameState current){
+        //creates new arrays
         this.p1Pieces = new Piece[12];
         this.p2Pieces = new Piece[12];
 
+        //copies number of pieces for each player
         this.p1NumPieces = current.p1NumPieces;
         this.p2NumPieces = current.p2NumPieces;
-        this.turn = current.turn;
 
+        this.turn = current.turn; //copies number indicating whose turn it is
+
+        //storing the current pieces in the new arrays
         for(int i = 0; i < 12; i++){
-            int newxCord1 = current.p1Pieces[i].xCord;
-            int newyCord1 = current.p1Pieces[i].yCord;
+            int newXCord1 = current.p1Pieces[i].xCord;
+            int newYCord1 = current.p1Pieces[i].yCord;
             boolean newLife1 = current.p1Pieces[i].isAlive;
             boolean newKing1 = current.p1Pieces[i].isKing;
 
-            this.p1Pieces[i] = new Piece(newxCord1,newyCord1,newLife1,newKing1);
+            this.p1Pieces[i] = new Piece(newXCord1,newYCord1,newLife1,newKing1);
 
-            int newxCord2 = current.p2Pieces[i].xCord;
-            int newyCord2 = current.p2Pieces[i].yCord;
+            int newXCord2 = current.p2Pieces[i].xCord;
+            int newYCord2 = current.p2Pieces[i].yCord;
             boolean newLife2 = current.p2Pieces[i].isAlive;
             boolean newKing2 = current.p2Pieces[i].isKing;
-            this.p2Pieces[i] = new Piece(newxCord2,newyCord2,newLife2,newKing2);
+            this.p2Pieces[i] = new Piece(newXCord2,newYCord2,newLife2,newKing2);
 
         }
     }

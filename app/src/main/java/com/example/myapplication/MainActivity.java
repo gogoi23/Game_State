@@ -21,8 +21,8 @@ public class MainActivity extends AppCompatActivity {
         GameState second = new GameState(first);
 
         first.p2Pieces[0].xCord = 5;
-        first.turn = 4;
-        second.p2NumPieces = 67;
+        first.turn = 2;
+        second.p2NumPieces = 6;
 
         EditText gameState = (EditText)findViewById(R.id.stateDescription);
 
@@ -31,12 +31,8 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 gameState.append("Welcome to Checkers.\n");
-                gameState.append("First p2 xcord = " + first.p2Pieces[0].xCord + "\n");
-                gameState.append("second p1 xcord = " + second.p2Pieces[0].xCord + "\n");
-                gameState.append( "first turn = " + first.turn + "\n");
-                gameState.append("second turn = " + second.turn + "\n");
-                gameState.append("first.p1NumPieces = " + first.p2NumPieces + "\n");
-                gameState.append("second.p1NumPieces = " + second.p2NumPieces + "\n");
+                gameState.append(first.toString() + "\n");
+                gameState.append(second.toString() + "\n");
             }
         });
 
