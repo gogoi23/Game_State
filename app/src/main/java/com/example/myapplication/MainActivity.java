@@ -19,10 +19,15 @@ public class MainActivity extends AppCompatActivity {
 
         GameState first = new GameState();
         GameState second = new GameState(first);
+        GameState third = new GameState();
+        GameState fourth = new GameState(third);
 
         first.p2Pieces[0].xCord = 5;
         first.turn = 2;
         second.p2NumPieces = 6;
+        third.p2Pieces[0].xCord = 5;
+        third.turn = 2;
+        fourth.p2NumPieces = 6;
 
         EditText gameState = (EditText)findViewById(R.id.stateDescription);
 
@@ -33,6 +38,8 @@ public class MainActivity extends AppCompatActivity {
                 gameState.append("Welcome to Checkers.\n");
                 gameState.append(first.toString() + "\n");
                 gameState.append(second.toString() + "\n");
+                gameState.append(third.toString() + "\n");
+                gameState.append(fourth.toString() + "\n");
             }
         });
 
