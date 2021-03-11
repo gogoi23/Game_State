@@ -21,8 +21,7 @@ public class MainActivity extends AppCompatActivity {
         GameState third = new GameState();
         GameState fourth = new GameState(third);
         String[][]board2 = new String[9][9];
-//        first.p2Pieces[3].setCordinates(6,4);
-//        first.p1Pieces[9].setCordinates(7,5);
+
 
         EditText gameState = (EditText)findViewById(R.id.stateDescription);
 
@@ -44,70 +43,8 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-//        Button moveRightB = (Button)findViewById(R.id.moverRightB);
-//        moveRightB.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                if(first.turn == 1) {
-//
-//                    first.movePiece(1,false,false,first.p1Pieces[9]);
-//                }
-//                else{
-//
-//                    first.movePiece(2,false,false, first.p2Pieces[1]);
-//                }
-//                printBoard(board2, first.p1Pieces, first.p2Pieces);
-//            }
-//        });
-//
-//        Button moveLeftB = (Button)findViewById(R.id.moveLeftB);
-//        moveLeftB.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                if(first.turn == 1) {
-//
-//                    first.movePiece(1,false,true,first.p1Pieces[9]);
-//                }
-//                else{
-//
-//                    first.movePiece(2,false,true, first.p2Pieces[1]);
-//                }
-//                printBoard(board2, first.p1Pieces, first.p2Pieces);
-//            }
-//        });
-//
-//        Button moveRightF = (Button)findViewById(R.id.moveRIghtF);
-//        moveRightF.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                if(first.turn == 1) {
-//                    first.movePiece(1,true,false,first.p1Pieces[9]);
-//                    //first.capturepiece(first.p1Pieces[9],1,first.p2Pieces,-1,-1);
-//                }
-//                else{
-//
-//                    first.movePiece(2,true,false, first.p2Pieces[1]);
-//                }
-//
-//                printBoard(board2, first.p1Pieces, first.p2Pieces);
-//            }
-//        });
-//
-//        Button moveLeftF = (Button) findViewById(R.id.moveLeftF);
-//        moveLeftF.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                if(first.turn == 1) {
-//
-//                    first.movePiece(1,true,true,first.p1Pieces[9]);
-//                }
-//                else{
-//
-//                    first.movePiece(2,true,true, first.p2Pieces[1]);
-//                }
-//                printBoard(board2, first.p1Pieces, first.p2Pieces);
-//            }
-//        });
+
+
     }
 
 
