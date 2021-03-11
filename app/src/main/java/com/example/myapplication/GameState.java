@@ -189,12 +189,12 @@ public class GameState {
         Log.e("move", "Player 2");
         if (inBounds(piece.xCord - 1, piece.yCord - 1) &&
         isEmpty(piece.xCord - 1, piece.yCord - 1)) {
-            this.turn = 1;
             piece.setCordinates(piece.xCord - 1,piece.yCord - 1);
             if (piece.yCord == 1) {
                 piece.isKing = true;
             }
             Log.e("move", "\nafter" + piece);
+            this.turn = 1;
             return true;
         } else {
             Log.e("move", "moving left backwards is not valid move");
@@ -204,14 +204,12 @@ public class GameState {
 
     }
 
-    public boolean moverightBackwardsP2(Piece piece){
+    public boolean moveRightBackwardsP2(Piece piece){
         Log.e("move", "\nbefore" + piece);
         Log.e("move", "Player 2");
         if (inBounds(piece.xCord + 1, piece.yCord - 1)&&
         isEmpty(piece.xCord + 1, piece.yCord - 1)) {
-            turn = 1;
             piece.setCordinates(piece.xCord+1,piece.yCord-1);
-
             if (piece.yCord == 1) {
                 piece.isKing = true;
             }

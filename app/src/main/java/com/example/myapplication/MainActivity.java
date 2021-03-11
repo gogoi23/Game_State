@@ -23,11 +23,11 @@ public class MainActivity extends AppCompatActivity {
         String[][]board2 = new String[9][9];
 
         //first.p2Pieces[0].xCord = 5;
-        first.turn = 1;
-        second.p2NumPieces = 6;
-        third.p2Pieces[0].xCord = 5;
-        third.turn = 2;
-        fourth.p2NumPieces = 6;
+//        first.turn = 1;
+//        second.p2NumPieces = 6;
+//        third.p2Pieces[0].xCord = 5;
+//        third.turn = 2;
+//        fourth.p2NumPieces = 6;
 
         EditText gameState = (EditText)findViewById(R.id.stateDescription);
 
@@ -49,10 +49,14 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if(first.turn==1) {
+                    gameState.append("Player 1 has moved a piece from " + "(" +
+                            first.p1Pieces[11].xCord + "," + first.p1Pieces[11].yCord + ")");
                     first.moveRightBackwardsP1(first.p1Pieces[11]);
+                    gameState.append("to " + "(" +
+                            first.p1Pieces[11].xCord + "," + first.p1Pieces[11].yCord + ")");
                 }
                 else{
-                    first.moverightBackwardsP2(first.p2Pieces[1]);
+                    first.moveRightBackwardsP2(first.p2Pieces[1]);
                 }
                 printBoard(board2, first.p1Pieces, first.p2Pieces);
             }
@@ -63,7 +67,11 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if(first.turn == 1) {
+                    gameState.append("Player 1 has moved a piece from " + "(" +
+                            first.p1Pieces[11].xCord + "," + first.p1Pieces[11].yCord + ")");
                     first.moveLeftBackwardsP1(first.p1Pieces[11]);
+                    gameState.append("to " + "(" +
+                            first.p1Pieces[11].xCord + "," + first.p1Pieces[11].yCord + ")");
                 }
                 else{
                     first.moveLeftBackwardsP2(first.p2Pieces[1]);
@@ -77,10 +85,14 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if(first.turn == 1) {
+                    gameState.append("Player 1 has moved a piece from " + "(" +
+                            first.p1Pieces[11].xCord + "," + first.p1Pieces[11].yCord + ")");
                     first.moveRightForwardP1(first.p1Pieces[11]);
+                    gameState.append("to " + "(" +
+                            first.p1Pieces[11].xCord + "," + first.p1Pieces[11].yCord + ")");
                 }
                 else{
-                    first.moveRightForwardsP2(first.p2Pieces[11]);
+                    first.moveRightForwardsP2(first.p2Pieces[1]);
                 }
                 printBoard(board2, first.p1Pieces, first.p2Pieces);
             }
@@ -91,7 +103,11 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if(first.turn == 1) {
+                    gameState.append("Player 1 has moved a piece from " + "(" +
+                            first.p1Pieces[11].xCord + "," + first.p1Pieces[11].yCord + ")");
                     first.moveLeftForwardP1(first.p1Pieces[11]);
+                    gameState.append("to " + "(" +
+                            first.p1Pieces[11].xCord + "," + first.p1Pieces[11].yCord + ")");
                 }
                 else{
                     first.moveLeftForwardsP2(first.p2Pieces[1]);
