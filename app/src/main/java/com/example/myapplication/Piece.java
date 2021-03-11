@@ -20,5 +20,31 @@ public class Piece {
         this.isKing = isKing;
     }
 
+    public void setCordinates(int xCord,int yCord){
+        this.xCord = xCord;
+        this.yCord = yCord;
+    }
+
+    public String toString(){
+        String returnValue = "";
+        returnValue = returnValue+"Xcord = " + this.xCord;
+        returnValue = returnValue + "\nYcord = " + this.yCord;
+        returnValue = returnValue + "\nIs Alive = " + this.isAlive;
+        returnValue = returnValue + "\nIs King = " + this.isKing;
+        return returnValue;
+    }
+
+    public int getXcoordinate(){
+        return this.xCord;
+    }
+
+    public int getYcoordinate(){
+        return this.yCord;
+    }
+
+    public boolean getAlive(){
+        return isAlive;
+    }
+
 
 }
