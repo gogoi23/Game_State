@@ -1,4 +1,3 @@
-
 package com.example.myapplication;
 
 import android.util.Log;
@@ -6,8 +5,6 @@ import android.util.Log;
 import java.util.ArrayList;
 
 public class GameState {
-
-    // instance variables
     public Piece[] p1Pieces;
     public Piece[] p2Pieces;
     public int p1NumPieces;
@@ -19,7 +16,6 @@ public class GameState {
         p1NumPieces = 12;
         p2NumPieces = 12;
 
-        // p1 starting coordinates
         p1Pieces = new Piece[12];
 
 
@@ -36,7 +32,6 @@ public class GameState {
         p1Pieces[10] = new Piece(3,3);
         p1Pieces[11] = new Piece(1,3);
 
-        // p2 starting coordinates
         p2Pieces = new Piece[12];
         p2Pieces[0] = new Piece(2,6);
         p2Pieces[1] = new Piece(4,6);
@@ -55,19 +50,17 @@ public class GameState {
 
     }
 
-    //deep copy constructor of GameState
     public GameState (GameState current){
-        //creates new arrays
         this.p1Pieces = new Piece[12];
         this.p2Pieces = new Piece[12];
 
-        //copies number of pieces for each player
+        //this.p1Pieces = current.p1Pieces;
+       // this.p2Pieces = current.p2Pieces;
+
         this.p1NumPieces = current.p1NumPieces;
         this.p2NumPieces = current.p2NumPieces;
+        this.turn = current.turn;
 
-        this.turn = current.turn; //copies number indicating whose turn it is
-
-        //storing the current pieces in the new arrays
         for(int i = 0;i<12;i++){
 
             this.p1Pieces[i] = new Piece(current.p1Pieces[i].xCord,current.p1Pieces[i].yCord,
@@ -139,7 +132,7 @@ public class GameState {
 
     }
 
-    //this moves player ones piece backwards
+    //this moves player ones piece backwards 
     public boolean moveLeftBackwardsP1(Piece piece){
         Log.e("move", "\nbefore" + piece);
         if (!piece.isKing) {
@@ -297,57 +290,6 @@ public class GameState {
 
     }
 
-    // states games status
-    @Override
-    public String toString() {
 
-        String returnValue = "";
-
-        // player 1 status
-        int p1count = 0;
-        for(int i = 0; i < p1Pieces.length; i++) {
-            if(p1Pieces[i].isAlive == true) {
-                if(p1Pieces[i].isKing == true) {
-                    returnValue = returnValue + "P1 piece " + i + " is a KING, coordinates: (" + this.p1Pieces[i].xCord + ", " + this.p1Pieces[i].yCord + ")\n";
-                }
-                else {
-                    returnValue = returnValue + "P1 piece " + i + " is alive, coordinates: (" + this.p1Pieces[i].xCord + ", " + this.p1Pieces[i].yCord + ")\n";
-                }
-                p1count++;
-            }
-            else {
-                returnValue = returnValue + "P1 piece " + i + " has been captured.\n";
-            }
-        }
-        returnValue = returnValue + "P1 has " + p1count + " pieces remaining\n";
-
-        // player 2 status
-        int p2count = 0;
-        for(int j = 0; j < p2Pieces.length; j++) {
-            if(p2Pieces[j].isAlive == true) {
-                if(p2Pieces[j].isKing == true) {
-                    returnValue = returnValue + "P2 piece " + j + " is a KING, coordinates: (" + this.p2Pieces[j].xCord + ", " + this.p2Pieces[j].yCord + ")\n";
-                }
-                else {
-                    returnValue = returnValue + "P2 piece " + j + " is alive, coordinates: (" + this.p2Pieces[j].xCord + ", " + this.p2Pieces[j].yCord + ")\n";
-                }
-                p2count++;
-            }
-            else {
-                returnValue = returnValue + "P2 piece " + j + " has been captured.\n";
-            }
-        }
-        returnValue = returnValue + "P2 has " + p2count + " pieces remaining\n";
-
-        // determine whose turn it is
-        if(turn == 1) {
-            returnValue = returnValue + "P1 turn.\n";
-        }
-        else if (turn == 2){
-            returnValue = returnValue + "P2 turn.\n";
-        }
-
-        return returnValue;
-    }
 
 }

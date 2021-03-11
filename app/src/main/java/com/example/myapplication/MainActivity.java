@@ -18,16 +18,8 @@ public class MainActivity extends AppCompatActivity {
 
         GameState first = new GameState();
         GameState second = new GameState(first);
-        GameState third = new GameState();
-        GameState fourth = new GameState(third);
         String[][]board2 = new String[9][9];
 
-        first.p2Pieces[0].xCord = 5;
-        first.turn = 2;
-        second.p2NumPieces = 6;
-        third.p2Pieces[0].xCord = 5;
-        third.turn = 2;
-        fourth.p2NumPieces = 6;
 
         EditText gameState = (EditText)findViewById(R.id.stateDescription);
 
@@ -36,10 +28,48 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 gameState.append("Welcome to Checkers.\n");
-                gameState.append(first.toString() + "\n");
-                gameState.append(second.toString() + "\n");
-                gameState.append(third.toString() + "\n");
-                gameState.append(fourth.toString() + "\n");
+                gameState.append("First p2 xcord = " + first.p2Pieces[0].xCord + "\n");
+                gameState.append("second p1 xcord = " + second.p2Pieces[0].xCord + "\n");
+                gameState.append( "first turn = " + first.turn + "\n");
+                gameState.append("second turn = " + second.turn + "\n");
+                gameState.append("first.p1NumPieces = " + first.p2NumPieces + "\n");
+                gameState.append("second.p1NumPieces = " + second.p2NumPieces + "\n");
+                printBoard(board2, first.p1Pieces, first.p2Pieces);
+
+
+
+
+            }
+        });
+
+
+        Button moveLeftF = (Button)findViewById(R.id.moveLeftF);
+        moveLeftF.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(first.turn == 1) {
+                    //first.isEmpty(piece == 1)
+                    first.moveLeftForwardP1(first.p1Pieces[11]);
+                }
+                else{
+                    first.moveLeftForwardsP2(first.p2Pieces[1]);
+                }
+                printBoard(board2, first.p1Pieces, first.p2Pieces);
+            }
+
+        });
+
+        Button moveRightF = (Button)findViewById(R.id.moveRIghtF);
+        moveRightF.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(first.turn == 1) {
+                    first.moveRightForwardP1(first.p1Pieces[11]);
+
+                }
+                else{
+                    first.moveRightForwardsP2(first.p2Pieces[1]);
+                }
                 printBoard(board2, first.p1Pieces, first.p2Pieces);
             }
         });
