@@ -426,4 +426,25 @@ public class GameState {
         return returnValue;
     }
 
+    public boolean inRange(int xDir,int yDir){
+        if((xDir == 1 || xDir == -1) && (yDir == 1 || yDir == -1)){
+            return true;
+        }
+        else{
+            return false;
+        }
+
+    }
+
+    public boolean movePiece(Piece piece,int xDir,int yDir){
+        boolean returnValue = true;
+        if(inRange(xDir,yDir)){
+            return true;
+        }
+        else {
+            return false;
+        }
+
+    }
+
 }
