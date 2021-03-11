@@ -32,26 +32,13 @@ public class MainActivity extends AppCompatActivity {
                 gameState.append("Welcome to Checkers.\n");
                 //gameState.append(first.toString() + "\n");
                 Piece firstPiece = first.p1Pieces[10];
-                Piece secondPiece = first.p2Pieces[2];
-                //moves a piece right forward in the first game state
+                //moves a piece in the first game state
                 gameState.append("Player 1 attempted to move a piece from " + "("+
                         firstPiece.getXcoordinate() + "," +
                         firstPiece.getYcoordinate() + ") to (" +
                         (firstPiece.getXcoordinate()+1) + "," +
                         (firstPiece.getYcoordinate()+1) + ")");
                 if(first.movePiece(firstPiece, 1, 1, 1) == true) {
-                    gameState.append(". It was a success.\n");
-                }
-                else{
-                    gameState.append(", but it didn't work.");
-                }
-                //moves a piece left forward
-                gameState.append("Player 2 attempted to move a piece from " + "("+
-                        secondPiece.getXcoordinate() + "," +
-                        secondPiece.getYcoordinate() + ") to (" +
-                        (secondPiece.getXcoordinate()-1) + "," +
-                        (secondPiece.getYcoordinate()+1) + ")");
-                if(first.movePiece(secondPiece, -1, -1, 2) == true) {
                     gameState.append(". It was a success.\n");
                 }
                 else{
