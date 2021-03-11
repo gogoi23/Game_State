@@ -20,7 +20,7 @@ public class Piece {
         this.isKing = isKing;
     }
 
-    public void setCordinates(int xCord,int yCord){
+    public void setCoordinates(int xCord,int yCord){
         this.xCord = xCord;
         this.yCord = yCord;
     }

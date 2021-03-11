@@ -31,19 +31,26 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 gameState.append("Welcome to Checkers.\n");
                 //gameState.append(first.toString() + "\n");
-                gameState.append("Player 1 moved a piece from " + "("+ first.p1Pieces[9].xCord +
-                                                              "," + first.p1Pieces[9].yCord + ")");
-                first.movePiece(1,false,true, first.p1Pieces[9]);
-                gameState.append("to (" + first.p1Pieces[9].xCord + "," + first.p1Pieces[9].yCord
-                                                                                            + ")");
+                //moves a piece right forward in the first game state
+                gameState.append("Player 1 moved a piece from " + "("+
+                        first.p1Pieces[10].getXcoordinate() + "," +
+                        first.p1Pieces[10].getYcoordinate() + ")");
+                first.movePiece(first.p1Pieces[10], 1, 1, 1);
+                gameState.append("to (" + first.p1Pieces[10].getXcoordinate() + "," +
+                                            first.p1Pieces[10].getYcoordinate() + ")");
+                //moves a piece left forward
+                gameState.append("Player 1 moved a piece from " + "("+
+                        first.p1Pieces[9].getXcoordinate() + "," +
+                        first.p1Pieces[9].getYcoordinate() + ")");
+                first.movePiece(first.p1Pieces[9], -1, 1, 1);
+                gameState.append("to (" + first.p1Pieces[9].getXcoordinate() + "," +
+                        first.p1Pieces[9].getYcoordinate() + ")");
                 gameState.append(second.toString() + "\n");
-                gameState.append(third.toString() + "\n");
+                //gameState.append(third.toString() + "\n");
                 gameState.append(fourth.toString() + "\n");
                 printBoard(board2, first.p1Pieces, first.p2Pieces);
             }
         });
-
-
 
     }
 
