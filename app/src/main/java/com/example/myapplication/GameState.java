@@ -80,6 +80,48 @@ public class GameState {
         }
     }
 
+    public boolean movePiece(int id,boolean forward,boolean left, Piece piece){
+        boolean returnValue = false;
+        if(id == 1){
+            if(left){
+                if(forward){
+                    return moveLeftForwardP1(piece);
+                }
+                else{
+                    return moveLeftBackwardsP1(piece);
+                }
+            }
+            else{
+                if(forward){
+                    return moveRightForwardP1(piece);
+                }
+                else{
+                    return moveRightBackwardsP1(piece);
+                }
+            }
+
+        }
+
+        else{
+            if(left){
+                if(forward){
+                    return moveLeftForwardsP2(piece);
+                }
+                else{
+                    return moveLeftBackwardsP2(piece);
+                }
+            }
+            else{
+                if(forward){
+                    return moveRightForwardsP2(piece);
+                }
+                else{
+                    return moverightBackwardsP2(piece);
+                }
+            }
+        }
+    }
+
     //moves player ones pieces left and forward
     //works on any pieces that is player ones
     //DO NOT USE ON PLAYER TWO'S PIECES
@@ -209,7 +251,7 @@ public class GameState {
         Log.e("move", "Player 2");
         if (inBounds(piece.xCord + 1, piece.yCord - 1)&&
         isEmpty(piece.xCord + 1, piece.yCord - 1)) {
-            turn = 1;
+
             piece.setCordinates(piece.xCord+1,piece.yCord-1);
 
             if (piece.yCord == 1) {
@@ -269,16 +311,18 @@ public class GameState {
         }
     }
 
+
+
     //checks if the given coordinates are empty
     public boolean isEmpty(int newXCord,int newYCord){
         boolean returnValue  = true;
         for(Piece piece : p1Pieces ){
-            if(piece.xCord == newXCord && piece.yCord == newYCord){
+            if(piece.xCord == newXCord && piece.yCord == newYCord && piece.isAlive){
                 return false;
             }
         }
         for(Piece piece : p2Pieces ){
-            if(piece.xCord == newXCord && piece.yCord == newYCord){
+            if(piece.xCord == newXCord && piece.yCord == newYCord && piece.isAlive){
                 return false;
             }
         }
@@ -345,6 +389,38 @@ public class GameState {
         }
         else if (turn == 2){
             returnValue = returnValue + "P2 turn.\n";
+        }
+
+        return returnValue;
+    }
+
+    public boolean capturepiece(Piece piece,int id,Piece[] enemyPieces,int xDir,int yDir){
+        boolean returnValue = false;
+
+        if(id == 1 && yDir<1 && !piece.isKing){
+            return false;
+        }
+
+        if(id == 2 && yDir>1 && !piece.isKing){
+            return false;
+        }
+
+        for(Piece piece1 : enemyPieces ){
+            if(piece.isAlive) {
+                if (piece.xCord + xDir == piece1.xCord && piece.yCord +yDir == piece1.yCord) {
+                    if (isEmpty(piece1.xCord + xDir, piece1.yCord + yDir)) {
+                        piece1.isAlive = false;
+                        returnValue = true;
+                        piece.setCordinates(piece1.xCord + xDir, piece1.yCord + yDir);
+                        if(turn == 1){
+                            turn = 2;
+                        }
+                        else{
+                            turn = 1;
+                        }
+                    }
+                }
+            }
         }
 
         return returnValue;
