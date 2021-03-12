@@ -9,10 +9,11 @@
 package com.example.myapplication;
 
 public class Piece {
-    private int xCord;
-    private int yCord;
+    private int xCord;//not needed
+    private int yCord;//not needed
     private boolean isKing;
     private boolean isAlive;
+    //variable for player num or owner
 
     public Piece(int xCord,int yCord){
         this.xCord = xCord;

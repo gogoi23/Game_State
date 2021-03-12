@@ -14,11 +14,12 @@ import java.util.ArrayList;
 public class GameState {
 
     // instance variables
-    public Piece[] p1Pieces;
-    public Piece[] p2Pieces;
+    public Piece[] p1Pieces;//if the grid is pieces this might not be needed
+    public Piece[] p2Pieces;//if the grid is pieces this might not be needed
     public int p1NumPieces;
     public int p2NumPieces;
     public int turn;
+    //add grid here
 
     public GameState(){
         turn = 1;
