@@ -1,3 +1,11 @@
+/**
+ * @author Aashish Anand, Anand Gogoi, Caitlin Ching, Cian Murray
+ * Piece class - initializes checker pieces coordinates, if its alive, and if its a king
+ *
+ * CS301A
+ * 03/12/2021
+ */
+
 package com.example.myapplication;
 
 public class Piece {
