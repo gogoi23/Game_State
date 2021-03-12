@@ -53,18 +53,18 @@ public class MainActivity extends AppCompatActivity {
                 //toString
                 firstInstance.toString();
                 firstInstance.inBounds(2,2);
-                gameState.append("P1 is in bounds.");
+                gameState.append("P1 is in bounds." + "\n");
                 firstInstance.isEmpty(2,2);
-                gameState.append("Space 2,2 is empty");
+                gameState.append("Space 2,2 is empty" + "\n");
                 firstInstance.inRange(1,1);
-                gameState.append("Movement is in range.");
+                gameState.append("Movement is in range." + "\n");
 
                 //Piece to test movePiece()
                 Piece testPiece = new Piece(2,1,true,false);
 
 
                 firstInstance.movePiece(testPiece, 1,1,1);
-                gameState.append("Piece moved");
+                gameState.append("Piece moved"+ "\n");
 
                 //enemy Piece to test capturePiece method
                 Piece enemyTestPiece = new Piece(2,3,true,false);
@@ -74,7 +74,7 @@ public class MainActivity extends AppCompatActivity {
 
 
                 firstInstance.capturepiece(testPiece, 1, enemyPieces, -1, 1);
-                gameState.append("Piece captured");
+                gameState.append("Piece captured"+ "\n");
 
 
                 //new GameState
