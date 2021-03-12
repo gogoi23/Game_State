@@ -35,10 +35,71 @@ public class MainActivity extends AppCompatActivity {
                 gameState.append(third.toString() + "\n");
                 gameState.append(fourth.toString() + "\n");
                 printBoard(board2, first.p1Pieces, first.p2Pieces);
+
+
+                //new GameState
+                GameState firstInstance = new GameState();
+                //Deep copy of firstInstance
+                GameState secondInstance = new GameState(firstInstance);
+
+
+                //Add in here every method being used on firstInstance
+                //Methods to call:
+                //inRange
+                //movePiece
+                //capturePiece
+                //inBounds
+                //isEmpty
+                //toString
+                firstInstance.toString();
+                firstInstance.inBounds(2,2);
+                gameState.append("P1 is in bounds.");
+                firstInstance.isEmpty(2,2);
+                gameState.append("Space 2,2 is empty");
+                firstInstance.inRange(1,1);
+                gameState.append("Movement is in range.");
+
+                //Piece to test movePiece()
+                Piece testPiece = new Piece(2,1,true,false);
+
+
+                firstInstance.movePiece(testPiece, 1,1,1);
+                gameState.append("Piece moved");
+
+                //enemy Piece to test capturePiece method
+                Piece enemyTestPiece = new Piece(2,3,true,false);
+                //array of enemy pieces to test capturePiece()
+                Piece[] enemyPieces = new Piece[1];
+                enemyPieces[0] = enemyTestPiece;
+
+
+                firstInstance.capturepiece(testPiece, 1, enemyPieces, -1, 1);
+                gameState.append("Piece captured");
+
+
+                //new GameState
+                GameState thirdInstance = new GameState();
+                //Deep copy of Third Instance
+                GameState fourthInstance = new GameState(thirdInstance);
+                if(secondInstance.toString().equals(fourthInstance.toString()))
+                {
+                    gameState.append(secondInstance.toString() + "\n");
+                    gameState.append(fourthInstance.toString() + "\n");
+                }
+
+
+
+
+
+
+
+
+
+
+
+
             }
         });
-
-
 
     }
 
