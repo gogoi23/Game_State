@@ -9,6 +9,15 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+/**
+ * MainActivity: runs the game state app
+ * When the Run Test button is clicked, the game states are printed to an EditText widget
+ * @author Aashish Anand, Anand Gogoi, Caitlin Ching, Cian Murray
+ *
+ * CS301A
+ * @version 03/11/2021
+ */
+
 public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {

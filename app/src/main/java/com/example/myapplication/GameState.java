@@ -3,7 +3,7 @@
  * Gamestate class - initiates moves, captures, and pieces of the game
  *
  * CS301A
- * 03/12/2021
+ * @version 03/11/2021
  */
 package com.example.myapplication;
 
