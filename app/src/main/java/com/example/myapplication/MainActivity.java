@@ -1,3 +1,11 @@
+/**
+ * @author Aashish Anand, Anand Gogoi, Caitlin Ching, Cian Murray
+ * Main Activity class - prints board and gamestate information
+ *
+ * CS301A
+ * 03/12/2021
+ */
+
 package com.example.myapplication;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -62,6 +70,8 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+
+    // prints board and checker pieces
     public static void printBoard(String[][] board2, Piece[] P1, Piece[] P2) {
         for(int height=1;height<=8;height++) {
             for(int lenth=1; lenth<=8;lenth++) {
