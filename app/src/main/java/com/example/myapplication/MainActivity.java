@@ -16,10 +16,6 @@ public class MainActivity extends AppCompatActivity {
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
         setContentView(R.layout.activity_main);
 
-        GameState first = new GameState();
-        GameState second = new GameState(first);
-        GameState third = new GameState();
-        GameState fourth = new GameState(third);
         String[][]board2 = new String[9][9];
 
 
@@ -31,6 +27,10 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 gameState.append("Welcome to Checkers.\n");
                 //gameState.append(first.toString() + "\n");
+
+                //creates new gamestate
+                GameState first = new GameState();
+
                 Piece firstPiece = first.p1Pieces[10];
                 //moves a piece in the first game state
                 gameState.append("Player 1 attempted to move a piece from " + "("+
@@ -42,17 +42,25 @@ public class MainActivity extends AppCompatActivity {
                     gameState.append(". It was a success.\n");
                 }
                 else{
-                    gameState.append(", but it didn't work.");
+                    gameState.append(", but it didn't work.\n");
                 }
-                gameState.append(second.toString() + "\n");
-                //gameState.append(third.toString() + "\n");
-                gameState.append(fourth.toString() + "\n");
-                printBoard(board2, first.p1Pieces, first.p2Pieces);
+                if(firstPiece.isKing == true){
+                    gameState.append("The piece has now a king.\n");
+                }
+
+                GameState second = new GameState(first);
+                GameState third = new GameState();
+                GameState fourth = new GameState(third);
+
+                if(second.toString().equals(fourth.toString())) {
+                    gameState.append(second.toString() + "\n");
+                    gameState.append(fourth.toString() + "\n");
+                    printBoard(board2, first.p1Pieces, first.p2Pieces);
+                }
             }
         });
 
     }
-
 
     public static void printBoard(String[][] board2, Piece[] P1, Piece[] P2) {
         for(int height=1;height<=8;height++) {
