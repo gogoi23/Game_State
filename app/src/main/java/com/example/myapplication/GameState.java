@@ -75,14 +75,8 @@ public class GameState {
 
         //storing the current pieces in the new arrays
         for(int i = 0;i<12;i++){
-
-            this.p1Pieces[i] = new Piece(current.p1Pieces[i].xCord,current.p1Pieces[i].yCord,
-            current.p1Pieces[i].isAlive,current.p1Pieces[i].isKing);
-
-
-            this.p2Pieces[i] = new Piece(current.p2Pieces[i].xCord,current.p2Pieces[i].yCord,
-            current.p2Pieces[i].isAlive,current.p2Pieces[i].isKing);
-
+            this.p1Pieces[i] = new Piece(current.p1Pieces[i]);
+            this.p2Pieces[i] = new Piece(current.p2Pieces[i]);
         }
     }
 
@@ -90,12 +84,14 @@ public class GameState {
     public boolean isEmpty(int newXCord,int newYCord){
         boolean returnValue  = true;
         for(Piece piece : p1Pieces ){
-            if(piece.xCord == newXCord && piece.yCord == newYCord && piece.isAlive){
+            if(piece.getXcoordinate() == newXCord && piece.getYcoordinate() == newYCord
+                    && piece.getAlive()){
                 return false;
             }
         }
         for(Piece piece : p2Pieces ){
-            if(piece.xCord == newXCord && piece.yCord == newYCord && piece.isAlive){
+            if(piece.getXcoordinate() == newXCord && piece.getYcoordinate() == newYCord
+                    && piece.getAlive()){
                 return false;
             }
         }
@@ -123,14 +119,16 @@ public class GameState {
         // player 1 status
         int p1count = 0;
         for(int i = 0; i < p1Pieces.length; i++) {
-            if(p1Pieces[i].isAlive == true) {
-                if(p1Pieces[i].isKing == true) {
+            if(p1Pieces[i].getAlive() == true) {
+                if(p1Pieces[i].getKing() == true) {
                     returnValue = returnValue + "P1 piece " + i + " is a KING, coordinates: ("
-                            + this.p1Pieces[i].xCord + ", " + this.p1Pieces[i].yCord + ")\n";
+                            + this.p1Pieces[i].getXcoordinate() + ", "
+                            + this.p1Pieces[i].getYcoordinate() + ")\n";
                 }
                 else {
                     returnValue = returnValue + "P1 piece " + i + " is alive, coordinates: ("
-                            + this.p1Pieces[i].xCord + ", " + this.p1Pieces[i].yCord + ")\n";
+                            + this.p1Pieces[i].getXcoordinate() + ", "
+                            + this.p1Pieces[i].getYcoordinate() + ")\n";
                 }
                 p1count++;
             }
@@ -143,14 +141,16 @@ public class GameState {
         // player 2 status
         int p2count = 0;
         for(int j = 0; j < p2Pieces.length; j++) {
-            if(p2Pieces[j].isAlive == true) {
-                if(p2Pieces[j].isKing == true) {
+            if(p2Pieces[j].getAlive() == true) {
+                if(p2Pieces[j].getKing() == true) {
                     returnValue = returnValue + "P2 piece " + j + " is a KING, coordinates: ("
-                            + this.p2Pieces[j].xCord + ", " + this.p2Pieces[j].yCord + ")\n";
+                            + this.p2Pieces[j].getXcoordinate() + ", "
+                            + this.p2Pieces[j].getYcoordinate() + ")\n";
                 }
                 else {
                     returnValue = returnValue + "P2 piece " + j + " is alive, coordinates: ("
-                            + this.p2Pieces[j].xCord + ", " + this.p2Pieces[j].yCord + ")\n";
+                            + this.p2Pieces[j].getXcoordinate() + ", "
+                            + this.p2Pieces[j].getYcoordinate() + ")\n";
                 }
                 p2count++;
             }
@@ -171,16 +171,19 @@ public class GameState {
         return returnValue;
     }
 
-    /** Capture method. Can be used for player one and player's two pieces
-    *   Piece is the piece doing the capturing
-    *   if id = 1 then it's player one's turn
-    *   if id = 2 then its player two's turn
-    *   xDir and yDir are used to determine the direction of the piece being capture
-    *   If the conditions are met then the pieces x-coordinate is set as x-coordinate+xdire*2
-    *   and same for the y-coordinate
-    *   xDire and yDire must equal to one or negative on or this method will return false
-    *   enemyPieces are array that targeted piece belongs to
-    */
+    /** Capture method. Can be used for player one and player two pieces
+     * @param piece the piece doing the capturing
+     * @param id  if id = 1 then it's player one's turn
+     *            if id = 2 then its player two's turn
+     * @param xDir xDir is used to determine the horizontal direction of the capturing piece
+     *   If the conditions are met then the piece's x-coordinate is set as x-coordinate + xdir*2
+     *   xDir must equal to one or negative one or this method will return false
+     * @param yDir xDir and yDir are used to determine the direction of the capturing piece
+     *     If the conditions are met then the piece's y-coordinate is set as y-coordinate + ydir*2
+     *     yDir must equal to one or negative one or this method will return false
+     * @param enemyPieces the array that targeted piece belongs to
+     * @return true if capture is legal move and false otherwise
+     */
     public boolean capturepiece(Piece piece,int id,Piece[] enemyPieces,int xDir,int yDir){
         //gets returned. Will be set to true if this method works.
         boolean returnValue = false;
@@ -190,30 +193,31 @@ public class GameState {
             return false;
         }
 
-        //checks if player one is trying to capture a piece behind it. If it is it makes sure it's a king
-        if(id == 1 && yDir<1 && !piece.isKing){
+        //checks if player one is trying to capture a piece behind it. If so, it makes sure it's a king
+        if(id == 1 && yDir<1 && !piece.getKing()){
             return false;
         }
 
-        //checks if player one is trying to capture a piece behind it. If it is it makes sure it's a king
-        if(id == 2 && yDir>1 && !piece.isKing){
+        //checks if player one is trying to capture a piece behind it. If so, it makes sure it's a king
+        if(id == 2 && yDir>1 && !piece.getKing()){
             return false;
         }
 
         //runs through all the enemy pieces
         for(Piece piece1 : enemyPieces ){
             //makes sure a dead pieces isn't being captured
-            if(piece.isAlive) {
+            if(piece.getAlive()) {
                 //makes checks if any enemy pieces is in a position to be captured by piece
-                if (piece.xCord + xDir == piece1.xCord && piece.yCord +yDir == piece1.yCord) {
+                if (piece.getXcoordinate() + xDir == piece1.getXcoordinate()
+                        && piece.getYcoordinate() +yDir == piece1.getYcoordinate()) {
                     //makes sure the space ahead of the the capture pieces is empty
-                    if (isEmpty(piece1.xCord + xDir, piece1.yCord + yDir)) {
+                    if (isEmpty(piece1.getXcoordinate() + xDir, piece1.getYcoordinate() + yDir)) {
                         //kills the pieces and sets the return value to true
-                        piece1.isAlive = false;
+                        piece1.setAlive(false);
                         returnValue = true;
 
                         //changes the turn number
-                        piece.setCoordinates(piece1.xCord + xDir, piece1.yCord + yDir);
+                        piece.setCoordinates(piece1.getXcoordinate() + xDir, piece1.getYcoordinate() + yDir);
                         if(turn == 1){
                             turn = 2;
                         }
@@ -240,49 +244,56 @@ public class GameState {
     }
 
     /**
-    *   This is the second movePiece method. It is much simpler to use and can
-    *   used on any piece in any of the 4 possible directions. It checks for all invalid moves as well
-    *   if id = 1 then it's player one's turn
-    *   if id = 2 then its player two's turn
-    *   xDir and yDir can only equal one and negative one. Any other number will return false
-    *   piece is the pieces that is moved. If the move is valid then the pieces x-coordinate is set as
-     *  x-coordinate+xdir and same for the y - coordinate
-    */
+     * This is the movePiece method. It is simple to use and can
+     * used on any piece in any of the 4 possible directions.
+     * It checks for all invalid moves as well
+     * @param piece the piece that is moved.
+     * @param id if id = 1 then it's player one's turn
+     *           if id = 2 then its player two's turn
+     * @param xDir xDir can only equal one and negative one. Any other number will return false
+     *             If the move is valid then the piece's x-coordinate is set as
+     *             x-coordinate + xdir
+     * @param yDir yDir can only equal one and negative one. Any other number will return false
+     *             If the move is valid then the piece's y-coordinate is set as
+     *             y-coordinate + ydir
+     * @return true if the move is legal and false otherwise
+     */
     public boolean movePiece(Piece piece, int xDir,int yDir,int id){
         //this if statement checks that the user has not tried to move more than one space
         if(inRange(xDir,yDir)){
 
             //this checks that user is not trying to move off the checker board as well as if the space is held by another piece
-            if(inBounds(piece.xCord+xDir,piece.yCord+yDir) && isEmpty(piece.xCord+xDir,piece.yCord+yDir)){
+            if(inBounds(piece.getXcoordinate()+xDir,piece.getYcoordinate()+yDir) &&
+                    isEmpty(piece.getXcoordinate()+xDir,piece.getYcoordinate()+yDir)){
 
                 //this checks if player one is not trying to move a non king piece backwards
-                if(id == 1 && yDir<1 && !piece.isKing){
+                if(id == 1 && yDir<1 && !piece.getKing()){
                     Log.e( "movePiece: ","Can't move backwards because not king" );
                     return false;
                 }
 
                 //this checks if player two is not trying to move a non king piece backwards
-                else if(id == 2 && yDir>0 && !piece.isKing){
+                else if(id == 2 && yDir>0 && !piece.getKing()){
                     Log.e( "movePiece: ","Can't move backwards because not king" );
                     return false;
                 }
 
                 //if all the conditions are right the piece will move.
                 else {
-                    piece.setCoordinates(piece.xCord+xDir,piece.yCord+yDir);
+                    piece.setCoordinates(piece.getXcoordinate()+xDir,piece.getYcoordinate()+yDir);
 
                     //will turn to player 1's pieces king if the piece reaches the other side of the board
                     if(turn == 1){
                         turn = 2;
-                        if(piece.yCord == 8){
-                            piece.isKing = true;
+                        if(piece.getYcoordinate() == 8){
+                            piece.setKing(true);
                         }
                     }
 
                     //will turn to player 2's pieces king if the piece reaches the other side of the board
                     else{
-                        if(piece.yCord == 1){
-                            piece.isKing = true;
+                        if(piece.getYcoordinate() == 1){
+                            piece.setKing(true);
                         }
                         turn = 1;
                     }

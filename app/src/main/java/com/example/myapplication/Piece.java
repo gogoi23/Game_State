@@ -9,23 +9,23 @@
 package com.example.myapplication;
 
 public class Piece {
-    public int xCord;
-    public int yCord;
-    public boolean isKing;
-    public boolean isAlive;
+    private int xCord;
+    private int yCord;
+    private boolean isKing;
+    private boolean isAlive;
 
     public Piece(int xCord,int yCord){
         this.xCord = xCord;
         this.yCord = yCord;
-        isAlive = true;
-        isKing = false;
+        this.isAlive = true;
+        this.isKing = false;
     }
 
-    public Piece(int xCord,int yCord,boolean isALive,boolean isKing){
-        this.xCord = xCord;
-        this.yCord = yCord;
-        this.isAlive = isALive;
-        this.isKing = isKing;
+    public Piece(Piece p){
+        this.xCord = p.xCord;
+        this.yCord = p.yCord;
+        this.isAlive = p.isAlive;
+        this.isKing = p.isKing;
     }
 
     public void setCoordinates(int xCord,int yCord){
@@ -54,5 +54,13 @@ public class Piece {
         return isAlive;
     }
 
+    public void setAlive(boolean isAlive) {
+        this.isAlive = isAlive;
+    }
 
+    public boolean getKing() { return isKing; }
+
+    public void setKing(boolean king) {
+        this.isKing = king;
+    }
 }
