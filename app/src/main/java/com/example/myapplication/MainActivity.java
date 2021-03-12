@@ -16,10 +16,6 @@ public class MainActivity extends AppCompatActivity {
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
         setContentView(R.layout.activity_main);
 
-        GameState first = new GameState();
-        GameState second = new GameState(first);
-        GameState third = new GameState();
-        GameState fourth = new GameState(third);
         String[][]board2 = new String[9][9];
 
 
@@ -30,13 +26,6 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 gameState.append("Welcome to Checkers.\n");
-                gameState.append(first.toString() + "\n");
-                gameState.append(second.toString() + "\n");
-                gameState.append(third.toString() + "\n");
-                gameState.append(fourth.toString() + "\n");
-                printBoard(board2, first.p1Pieces, first.p2Pieces);
-
-
                 //new GameState
                 GameState firstInstance = new GameState();
                 //Deep copy of firstInstance
@@ -51,7 +40,6 @@ public class MainActivity extends AppCompatActivity {
                 //inBounds
                 //isEmpty
                 //toString
-                firstInstance.toString();
                 firstInstance.inBounds(2,2);
                 gameState.append("P1 is in bounds." + "\n");
                 firstInstance.isEmpty(2,2);
@@ -59,50 +47,44 @@ public class MainActivity extends AppCompatActivity {
                 firstInstance.inRange(1,1);
                 gameState.append("Movement is in range." + "\n");
 
-                //Piece to test movePiece()
-                Piece testPiece = new Piece(2,1,true,false);
+                //Pieces to test movePiece()
+                Piece testPiece = firstInstance.p1Pieces[10];
 
-
+                gameState.append("Player 1 piece moved from (" + testPiece.getXcoordinate() + ","
+                                                        + testPiece.getYcoordinate() + ") ");
                 firstInstance.movePiece(testPiece, 1,1,1);
-                gameState.append("Piece moved"+ "\n");
+                gameState.append("to (" + testPiece.getXcoordinate() + "," +
+                                    testPiece.getYcoordinate() + ")" + "\n");
 
-                //enemy Piece to test capturePiece method
-                Piece enemyTestPiece = new Piece(2,3,true,false);
-                //array of enemy pieces to test capturePiece()
-                Piece[] enemyPieces = new Piece[1];
-                enemyPieces[0] = enemyTestPiece;
+                Piece testPiece2 = firstInstance.p2Pieces[2];
+                gameState.append("Player 2 piece moved from (" + testPiece2.getXcoordinate() + ","
+                        + testPiece2.getYcoordinate() + ") ");
+                firstInstance.movePiece(testPiece2, -1,-1,2);
+                gameState.append("to (" + testPiece2.getXcoordinate() + "," +
+                        testPiece2.getYcoordinate() + ")" + "\n");
 
+                //captures the enemy Piece
+                firstInstance.capturepiece(testPiece, 1, firstInstance.p2Pieces, 1, 1);
+                gameState.append("Player 2 piece captured by Player 1"+ "\n");
 
-                firstInstance.capturepiece(testPiece, 1, enemyPieces, -1, 1);
-                gameState.append("Piece captured"+ "\n");
-
+                //prints events in first instance, including the board
+                gameState.append("\nAfter first instance: \n" + firstInstance.toString() + "\n");
+                printBoard(board2, firstInstance.p1Pieces, firstInstance.p2Pieces);
 
                 //new GameState
                 GameState thirdInstance = new GameState();
                 //Deep copy of Third Instance
                 GameState fourthInstance = new GameState(thirdInstance);
-                if(secondInstance.toString().equals(fourthInstance.toString()))
+                if((secondInstance.toString()).equals(fourthInstance.toString()))
                 {
-                    gameState.append(secondInstance.toString() + "\n");
-                    gameState.append(fourthInstance.toString() + "\n");
+                    gameState.append("After second instance: \n" + secondInstance.toString() + "\n");
+                    gameState.append("After fourth instance: \n" + fourthInstance.toString() + "\n");
                 }
-
-
-
-
-
-
-
-
-
-
-
 
             }
         });
 
     }
-
 
     public static void printBoard(String[][] board2, Piece[] P1, Piece[] P2) {
         for(int height=1;height<=8;height++) {
