@@ -78,7 +78,7 @@ public class MainActivity extends AppCompatActivity {
 
                 //prints events in first instance, including the board
                 gameState.append("\nAfter first instance: \n" + firstInstance.toString() + "\n");
-                printBoard(board2, firstInstance.p1Pieces, firstInstance.p2Pieces);
+                firstInstance.printBoard(board2, firstInstance.p1Pieces, firstInstance.p2Pieces);
 
                 //new GameState
                 GameState thirdInstance = new GameState();
@@ -95,6 +95,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    /*
     public static void printBoard(String[][] board2, Piece[] P1, Piece[] P2) {
         for(int height=1;height<=8;height++) {
             for(int lenth=1; lenth<=8;lenth++) {
@@ -197,11 +198,6 @@ public class MainActivity extends AppCompatActivity {
         Log.e( "printBoard: ","\n|   |   |   |   |   |   |   |   |");
         Log.e( "printBoard: ","\n|"+board2[1][1]+"|"+board2[2][1]+"|"+board2[3][1]+"|"+board2[4][1]+"|"+board2[5][1]+"|"+board2[6][1]+"|"+board2[7][1]+"|"+board2[8][1]+"|"+1);
         Log.e( "printBoard: ","\n  1   2   3   4   5   6   7   8");
-
-
-    }
-
-
-
+    } */
 
 }
