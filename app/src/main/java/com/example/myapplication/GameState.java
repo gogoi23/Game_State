@@ -1,4 +1,10 @@
-
+/**
+ * @author Aashish Anand, Anand Gogoi, Caitlin Ching, Cian Murray
+ * Gamestate class - initiates moves, captures, and pieces of the game
+ *
+ * CS301A
+ * 03/12/2021
+ */
 package com.example.myapplication;
 
 import android.util.Log;
@@ -119,10 +125,12 @@ public class GameState {
         for(int i = 0; i < p1Pieces.length; i++) {
             if(p1Pieces[i].isAlive == true) {
                 if(p1Pieces[i].isKing == true) {
-                    returnValue = returnValue + "P1 piece " + i + " is a KING, coordinates: (" + this.p1Pieces[i].xCord + ", " + this.p1Pieces[i].yCord + ")\n";
+                    returnValue = returnValue + "P1 piece " + i + " is a KING, coordinates: ("
+                            + this.p1Pieces[i].xCord + ", " + this.p1Pieces[i].yCord + ")\n";
                 }
                 else {
-                    returnValue = returnValue + "P1 piece " + i + " is alive, coordinates: (" + this.p1Pieces[i].xCord + ", " + this.p1Pieces[i].yCord + ")\n";
+                    returnValue = returnValue + "P1 piece " + i + " is alive, coordinates: ("
+                            + this.p1Pieces[i].xCord + ", " + this.p1Pieces[i].yCord + ")\n";
                 }
                 p1count++;
             }
@@ -137,10 +145,12 @@ public class GameState {
         for(int j = 0; j < p2Pieces.length; j++) {
             if(p2Pieces[j].isAlive == true) {
                 if(p2Pieces[j].isKing == true) {
-                    returnValue = returnValue + "P2 piece " + j + " is a KING, coordinates: (" + this.p2Pieces[j].xCord + ", " + this.p2Pieces[j].yCord + ")\n";
+                    returnValue = returnValue + "P2 piece " + j + " is a KING, coordinates: ("
+                            + this.p2Pieces[j].xCord + ", " + this.p2Pieces[j].yCord + ")\n";
                 }
                 else {
-                    returnValue = returnValue + "P2 piece " + j + " is alive, coordinates: (" + this.p2Pieces[j].xCord + ", " + this.p2Pieces[j].yCord + ")\n";
+                    returnValue = returnValue + "P2 piece " + j + " is alive, coordinates: ("
+                            + this.p2Pieces[j].xCord + ", " + this.p2Pieces[j].yCord + ")\n";
                 }
                 p2count++;
             }
@@ -161,15 +171,15 @@ public class GameState {
         return returnValue;
     }
 
-    /*Capture method. Can be used for player one and player's two pieces
-    * Piece is the piece doing the capturing
-    *if id = 1 then it's player one's turn
-    *if id = 2 then its player two's turn
-    * xDir and yDir are used to determin the direction of the piece being capture
-    * If the conditions are met then the pieces x-coordinate is set as x-coordinate+xdire*2
-    * and same for the y-coordinate
-    * xDire and yDire must equal to one or negative on or this method will return false
-    * enemyPieces are array that targeted piece belongs to
+    /** Capture method. Can be used for player one and player's two pieces
+    *   Piece is the piece doing the capturing
+    *   if id = 1 then it's player one's turn
+    *   if id = 2 then its player two's turn
+    *   xDir and yDir are used to determine the direction of the piece being capture
+    *   If the conditions are met then the pieces x-coordinate is set as x-coordinate+xdire*2
+    *   and same for the y-coordinate
+    *   xDire and yDire must equal to one or negative on or this method will return false
+    *   enemyPieces are array that targeted piece belongs to
     */
     public boolean capturepiece(Piece piece,int id,Piece[] enemyPieces,int xDir,int yDir){
         //gets returned. Will be set to true if this method works.
@@ -203,7 +213,7 @@ public class GameState {
                         returnValue = true;
 
                         //changes the turn number
-                        piece.setCordinates(piece1.xCord + xDir, piece1.yCord + yDir);
+                        piece.setCoordinates(piece1.xCord + xDir, piece1.yCord + yDir);
                         if(turn == 1){
                             turn = 2;
                         }
@@ -229,16 +239,16 @@ public class GameState {
 
     }
 
-    /*
-    *this is the second movePiece method. It is much simpler to use and can
-    *used on any piece in any of the 4 possible directions. It checks for all invalid moves as well
-    *if id = 1 then it's player one's turn
-    *if id = 2 then its player two's turn
-    *xDir and yDir can only equal one and negative one. Any other number will return false
-    * piece is the pieces that is moved. If the move is valid then the pieces x-coordinate is set as x-coordinate+xdire
-    * and same for the y - coordinate
+    /**
+    *   This is the second movePiece method. It is much simpler to use and can
+    *   used on any piece in any of the 4 possible directions. It checks for all invalid moves as well
+    *   if id = 1 then it's player one's turn
+    *   if id = 2 then its player two's turn
+    *   xDir and yDir can only equal one and negative one. Any other number will return false
+    *   piece is the pieces that is moved. If the move is valid then the pieces x-coordinate is set as
+     *  x-coordinate+xdir and same for the y - coordinate
     */
-    public boolean movePiece(Piece piece,int xDir,int yDir,int id){
+    public boolean movePiece(Piece piece, int xDir,int yDir,int id){
         //this if statement checks that the user has not tried to move more than one space
         if(inRange(xDir,yDir)){
 
@@ -259,7 +269,7 @@ public class GameState {
 
                 //if all the conditions are right the piece will move.
                 else {
-                    piece.setCordinates(piece.xCord+xDir,piece.yCord+yDir);
+                    piece.setCoordinates(piece.xCord+xDir,piece.yCord+yDir);
 
                     //will turn to player 1's pieces king if the piece reaches the other side of the board
                     if(turn == 1){
@@ -358,7 +368,7 @@ public class GameState {
         isEmpty(piece.xCord - 1, piece.yCord + 1)) {
 
             //sets the coordinates
-            piece.setCordinates(piece.xCord - 1, piece.yCord + 1);
+            piece.setCoordinates(piece.xCord - 1, piece.yCord + 1);
 
             //makes it a king if it reaches the end of the baord
             if (piece.yCord == 8) {
@@ -388,7 +398,7 @@ public class GameState {
         Log.e("move", "\nbefore" + piece);
         if (inBounds(piece.xCord + 1, piece.yCord + 1) &&
         isEmpty(piece.xCord + 1, piece.yCord + 1)) {
-            piece.setCordinates(piece.xCord + 1,piece.yCord + 1);
+            piece.setCoordinates(piece.xCord + 1,piece.yCord + 1);
 
             if(piece.yCord == 8){
                 piece.isKing = true;
@@ -414,7 +424,7 @@ public class GameState {
         else{
             if (inBounds(piece.xCord - 1, piece.yCord - 1)&&
             isEmpty(piece.xCord - 1, piece.yCord - 1)) {
-                piece.setCordinates(piece.xCord - 1,piece.yCord - 1);
+                piece.setCoordinates(piece.xCord - 1,piece.yCord - 1);
                 Log.e("move", piece.toString());
                 this.turn = 2;
                 return true;
@@ -435,7 +445,7 @@ public class GameState {
         else {
             if (inBounds(piece.xCord + 1, piece.yCord - 1) &&
             isEmpty(piece.xCord + 1, piece.yCord - 1)) {
-                piece.setCordinates(piece.xCord + 1,piece.yCord - 1);
+                piece.setCoordinates(piece.xCord + 1,piece.yCord - 1);
                 Log.e("move", piece.toString());
                 this.turn = 2;
                 return true;
@@ -455,7 +465,7 @@ public class GameState {
         if (inBounds(piece.xCord - 1, piece.yCord - 1) &&
         isEmpty(piece.xCord - 1, piece.yCord - 1)) {
             this.turn = 1;
-            piece.setCordinates(piece.xCord - 1,piece.yCord - 1);
+            piece.setCoordinates(piece.xCord - 1,piece.yCord - 1);
             if (piece.yCord == 1) {
                 piece.isKing = true;
             }
@@ -475,7 +485,7 @@ public class GameState {
         if (inBounds(piece.xCord + 1, piece.yCord - 1)&&
         isEmpty(piece.xCord + 1, piece.yCord - 1)) {
 
-            piece.setCordinates(piece.xCord+1,piece.yCord-1);
+            piece.setCoordinates(piece.xCord+1,piece.yCord-1);
 
             if (piece.yCord == 1) {
                 piece.isKing = true;
@@ -500,7 +510,7 @@ public class GameState {
 
             if (inBounds(piece.xCord - 1, piece.yCord + 1) &&
             isEmpty(piece.xCord - 1, piece.yCord + 1)) {
-                piece.setCordinates(piece.xCord - 1, piece.yCord + 1);
+                piece.setCoordinates(piece.xCord - 1, piece.yCord + 1);
                 Log.e("move", "\n after"+piece.toString());
                 this.turn = 1;
                 return true;
@@ -522,7 +532,7 @@ public class GameState {
 
             if (inBounds(piece.xCord + 1, piece.yCord + 1) &&
             isEmpty(piece.xCord + 1,piece.yCord+1)) {
-                piece.setCordinates(piece.xCord + 1, piece.yCord + 1);
+                piece.setCoordinates(piece.xCord + 1, piece.yCord + 1);
                 Log.e("move", "\n after"+piece.toString());
                 this.turn = 1;
                 return true;
