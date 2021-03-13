@@ -13,11 +13,15 @@ public class Piece {
     private int yCord;//not needed
     private boolean isKing;
     private boolean isAlive;
-    //variable for player num or owner
+    //variable for player num or owner; can only be 1 or 2
+    private int player;
 
-    public Piece(int xCord,int yCord){
+    public Piece(int xCord, int yCord, int player){
         this.xCord = xCord;
         this.yCord = yCord;
+        if(player == 1 || player == 2) {
+            this.player = player;
+        }
         this.isAlive = true;
         this.isKing = false;
     }
@@ -25,6 +29,9 @@ public class Piece {
     public Piece(Piece p){
         this.xCord = p.xCord;
         this.yCord = p.yCord;
+        if(p.player == 1 || p.player == 2) {
+            this.player = p.player;
+        }
         this.isAlive = p.isAlive;
         this.isKing = p.isKing;
     }
@@ -64,4 +71,6 @@ public class Piece {
     public void setKing(boolean king) {
         this.isKing = king;
     }
+
+    public int getPlayer() { return player; }
 }

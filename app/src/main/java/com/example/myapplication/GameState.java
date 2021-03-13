@@ -20,6 +20,7 @@ public class GameState {
     public int p2NumPieces;
     public int turn;
     //add grid here
+    public Piece[][] board;
 
     public GameState(){
         turn = 1;
@@ -27,7 +28,7 @@ public class GameState {
         p2NumPieces = 12;
 
         // p1 starting coordinates
-        p1Pieces = new Piece[12];
+        /*p1Pieces = new Piece[12];
 
 
         p1Pieces[0] = new Piece(1,1);
@@ -56,17 +57,32 @@ public class GameState {
         p2Pieces[8] = new Piece(2,8);
         p2Pieces[9] = new Piece(4,8);
         p2Pieces[10] = new Piece(6,8);
-        p2Pieces[11] = new Piece(8,8);
+        p2Pieces[11] = new Piece(8,8);*/
 
+        board = new Piece[8][8];
 
+        for(int row = 0; row < board.length; row++){
+            for(int col = 0; col < board[row].length; col++){
+                if(row<=2) {
+                    if ((row + col) % 2 == 1) {
+                        board[row][col] = new Piece(row, col, 2);
+                    }
+                }
+                else if(row>=5) {
+                    if ((row + col) % 2 == 1) {
+                        board[row][col] = new Piece(row, col, 1);
+                    }
+                }
+            }
+        }
 
     }
 
     //deep copy constructor of GameState
     public GameState (GameState current){
         //creates new arrays
-        this.p1Pieces = new Piece[12];
-        this.p2Pieces = new Piece[12];
+        //this.p1Pieces = new Piece[12];
+        //this.p2Pieces = new Piece[12];
 
         //copies number of pieces for each player
         this.p1NumPieces = current.p1NumPieces;
@@ -75,16 +91,24 @@ public class GameState {
         this.turn = current.turn; //copies number indicating whose turn it is
 
         //storing the current pieces in the new arrays
-        for(int i = 0;i<12;i++){
-            this.p1Pieces[i] = new Piece(current.p1Pieces[i]);
-            this.p2Pieces[i] = new Piece(current.p2Pieces[i]);
+        /*for(int i = 0; i < 12; i++){
+              this.p1Pieces[i] = new Piece(current.p1Pieces[i]);
+              this.p2Pieces[i] = new Piece(current.p2Pieces[i]);
+          }*/
+        this.board = new Piece[8][8];
+        for(int row = 0; row < board.length; row++){
+            for(int col = 0; col < board[row].length; col++){
+                if ((row + col) % 2 == 1) {
+                        this.board[row][col] = new Piece(current.board[row][col]);
+                }
+            }
         }
     }
 
     //checks if the given coordinates are empty
     public boolean isEmpty(int newXCord,int newYCord){
         boolean returnValue  = true;
-        for(Piece piece : p1Pieces ){
+        /*for(Piece piece : p1Pieces ){
             if(piece.getXcoordinate() == newXCord && piece.getYcoordinate() == newYCord
                     && piece.getAlive()){
                 return false;
@@ -95,6 +119,14 @@ public class GameState {
                     && piece.getAlive()){
                 return false;
             }
+        }*/
+        if(!inBounds(newXCord, newYCord)) {
+            returnValue = false;
+        }
+        else{
+            if(board[newXCord][newYCord] != null && board[newXCord][newYCord].getAlive() == true){
+                returnValue = false;
+            }
         }
         return returnValue;
     }
@@ -103,7 +135,7 @@ public class GameState {
     public boolean inBounds(int newXCord,int newYCord){
         boolean valid = true;
 
-        if(newXCord>8 || newYCord>8 || newXCord<1 || newYCord<1){
+        if(newXCord>7 || newYCord>7 || newXCord<0 || newYCord<0){
             valid = false;
         }
 
@@ -119,7 +151,7 @@ public class GameState {
 
         // player 1 status
         int p1count = 0;
-        for(int i = 0; i < p1Pieces.length; i++) {
+        /*for(int i = 0; i < p1Pieces.length; i++) {
             if(p1Pieces[i].getAlive() == true) {
                 if(p1Pieces[i].getKing() == true) {
                     returnValue = returnValue + "P1 piece " + i + " is a KING, coordinates: ("
@@ -137,11 +169,11 @@ public class GameState {
                 returnValue = returnValue + "P1 piece " + i + " has been captured.\n";
             }
         }
-        returnValue = returnValue + "P1 has " + p1count + " pieces remaining\n";
+        returnValue = returnValue + "P1 has " + p1count + " pieces remaining\n";*/
 
         // player 2 status
         int p2count = 0;
-        for(int j = 0; j < p2Pieces.length; j++) {
+        /*for(int j = 0; j < p2Pieces.length; j++) {
             if(p2Pieces[j].getAlive() == true) {
                 if(p2Pieces[j].getKing() == true) {
                     returnValue = returnValue + "P2 piece " + j + " is a KING, coordinates: ("
@@ -159,6 +191,52 @@ public class GameState {
                 returnValue = returnValue + "P2 piece " + j + " has been captured.\n";
             }
         }
+        returnValue = returnValue + "P2 has " + p2count + " pieces remaining\n";*/
+
+        for(int i= 0; i<board.length; i++){
+            for(int j = 0; j<board[i].length; j++){
+                if(board[i][j].getPlayer() == 1) {
+                    if (board[i][j].getAlive() == true) {
+                        p1count++;
+                        if (board[i][j].getKing() == true) {
+                            returnValue =
+                                    returnValue + "P1 piece " +
+                                            p1count + " is a KING, coordinates: (" + i + ", " + j +
+                                            ")\n";
+                        } else {
+                            returnValue =
+                                    returnValue + "P1 piece " + p1count +
+                                            " is alive, coordinates: (" + i + ", " + j + ")\n";
+                        }
+                    } else {
+                        returnValue = returnValue + "P1 piece " + p1count + " has been captured.\n";
+                    }
+                }
+            }
+        }
+        returnValue = returnValue + "P1 has " + p1count + " pieces remaining\n";
+
+        for(int i= 0; i<board.length; i++){
+            for(int j = 0; j<board[i].length; j++){
+                if(board[i][j].getPlayer() == 2) {
+                    if (board[i][j].getAlive() == true) {
+                        p2count++;
+                        if (board[i][j].getKing() == true) {
+                            returnValue =
+                                    returnValue + "P2 piece " +
+                                            p2count + " is a KING, coordinates: ("
+                                            + i + ", " + j + ")\n";
+                        } else {
+                            returnValue =
+                                    returnValue + "P2 piece " + p2count +
+                                            " is alive, coordinates: (" + i + ", " + j + ")\n";
+                        }
+                    } else {
+                        returnValue = returnValue + "P2 piece " + p1count + " has been captured.\n";
+                    }
+                }
+            }
+        }
         returnValue = returnValue + "P2 has " + p2count + " pieces remaining\n";
 
         // determine whose turn it is
@@ -174,8 +252,6 @@ public class GameState {
 
     /** Capture method. Can be used for player one and player two pieces
      * @param piece the piece doing the capturing
-     * @param id  if id = 1 then it's player one's turn
-     *            if id = 2 then its player two's turn
      * @param xDir xDir is used to determine the horizontal direction of the capturing piece
      *   If the conditions are met then the piece's x-coordinate is set as x-coordinate + xdir*2
      *   xDir must equal to one or negative one or this method will return false
@@ -185,7 +261,7 @@ public class GameState {
      * @param enemyPieces the array that targeted piece belongs to
      * @return true if capture is legal move and false otherwise
      */
-    public boolean capturepiece(Piece piece,int id,Piece[] enemyPieces,int xDir,int yDir){
+    public boolean capturepiece(Piece piece,Piece[] enemyPieces,int xDir,int yDir){
         //gets returned. Will be set to true if this method works.
         boolean returnValue = false;
 
@@ -195,12 +271,12 @@ public class GameState {
         }
 
         //checks if player one is trying to capture a piece behind it. If so, it makes sure it's a king
-        if(id == 1 && yDir<1 && !piece.getKing()){
+        if(piece.getPlayer() == 1 && yDir<1 && !piece.getKing()){
             return false;
         }
 
-        //checks if player one is trying to capture a piece behind it. If so, it makes sure it's a king
-        if(id == 2 && yDir>1 && !piece.getKing()){
+        //checks if player two is trying to capture a piece behind it. If so, it makes sure it's a king
+        if(piece.getPlayer() == 2 && yDir>1 && !piece.getKing()){
             return false;
         }
 
@@ -249,8 +325,6 @@ public class GameState {
      * used on any piece in any of the 4 possible directions.
      * It checks for all invalid moves as well
      * @param piece the piece that is moved.
-     * @param id if id = 1 then it's player one's turn
-     *           if id = 2 then its player two's turn
      * @param xDir xDir can only equal one and negative one. Any other number will return false
      *             If the move is valid then the piece's x-coordinate is set as
      *             x-coordinate + xdir
@@ -259,7 +333,7 @@ public class GameState {
      *             y-coordinate + ydir
      * @return true if the move is legal and false otherwise
      */
-    public boolean movePiece(Piece piece, int xDir,int yDir,int id){
+    public boolean movePiece(Piece piece, int xDir,int yDir){
         //this if statement checks that the user has not tried to move more than one space
         if(inRange(xDir,yDir)){
 
@@ -268,13 +342,13 @@ public class GameState {
                     isEmpty(piece.getXcoordinate()+xDir,piece.getYcoordinate()+yDir)){
 
                 //this checks if player one is not trying to move a non king piece backwards
-                if(id == 1 && yDir<1 && !piece.getKing()){
+                if(piece.getPlayer() == 1 && yDir<1 && !piece.getKing()){
                     Log.e( "movePiece: ","Can't move backwards because not king" );
                     return false;
                 }
 
                 //this checks if player two is not trying to move a non king piece backwards
-                else if(id == 2 && yDir>0 && !piece.getKing()){
+                else if(piece.getPlayer() == 2 && yDir>0 && !piece.getKing()){
                     Log.e( "movePiece: ","Can't move backwards because not king" );
                     return false;
                 }

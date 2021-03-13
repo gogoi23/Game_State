@@ -61,19 +61,19 @@ public class MainActivity extends AppCompatActivity {
 
                 gameState.append("Player 1 piece moved from (" + testPiece.getXcoordinate() + ","
                                                         + testPiece.getYcoordinate() + ") ");
-                firstInstance.movePiece(testPiece, 1,1,1);
+                firstInstance.movePiece(testPiece, 1,1);
                 gameState.append("to (" + testPiece.getXcoordinate() + "," +
                                     testPiece.getYcoordinate() + ")" + "\n");
 
                 Piece testPiece2 = firstInstance.p2Pieces[2];
                 gameState.append("Player 2 piece moved from (" + testPiece2.getXcoordinate() + ","
                         + testPiece2.getYcoordinate() + ") ");
-                firstInstance.movePiece(testPiece2, -1,-1,2);
+                firstInstance.movePiece(testPiece2, -1,-1);
                 gameState.append("to (" + testPiece2.getXcoordinate() + "," +
                         testPiece2.getYcoordinate() + ")" + "\n");
 
                 //captures the enemy Piece
-                firstInstance.capturepiece(testPiece, 1, firstInstance.p2Pieces, 1, 1);
+                firstInstance.capturepiece(testPiece,  firstInstance.p2Pieces, 1, 1);
                 gameState.append("Player 2 piece captured by Player 1"+ "\n");
 
                 //prints events in first instance, including the board
