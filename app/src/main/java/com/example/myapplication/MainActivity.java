@@ -57,30 +57,30 @@ public class MainActivity extends AppCompatActivity {
                 gameState.append("Movement is in range." + "\n");
 
                 //Pieces to test movePiece()
-                Piece testPiece = firstInstance.board[5][2];
+                Piece testPiece = firstInstance.p1Pieces[10];
 
-                gameState.append("Player " + testPiece.getPlayer() + 
-                        " piece moved from (" + firstInstance.getRow(testPiece) + ","
-                        + firstInstance.getCol(testPiece) + ") ");
-                firstInstance.movePiece(testPiece, -1,1);
-                gameState.append("to (" + firstInstance.getRow(testPiece) + "," +
-                                    firstInstance.getCol(testPiece) + ")" + "\n");
+                gameState.append("Player 1"  +
+                        " piece moved from (" + testPiece.getXcoordinate() + ","
+                        + testPiece.getYcoordinate() + ") ");
+                firstInstance.movePiece(testPiece, 1,1, 1);
+                gameState.append("to (" + testPiece.getXcoordinate() + "," +
+                        testPiece.getYcoordinate() + ")" + "\n");
 
-                Piece testPiece2 = firstInstance.board[2][5];
-                gameState.append("Player " + testPiece2.getPlayer() +
-                        " piece moved from (" + firstInstance.getRow(testPiece2) + ","
-                        + firstInstance.getCol(testPiece2) + ") ");
-                firstInstance.movePiece(testPiece2, 1,-1);
-                gameState.append("to (" + firstInstance.getRow(testPiece2) + "," +
-                        firstInstance.getCol(testPiece2) + ")" + "\n");
+                Piece testPiece2 = firstInstance.p2Pieces[2];
+                gameState.append("Player 2" +
+                        " piece moved from (" +  testPiece2.getXcoordinate() + ","
+                        +  testPiece2.getYcoordinate() + ") ");
+                firstInstance.movePiece(testPiece2, -1,-1, 2);
+                gameState.append("to (" + testPiece2.getXcoordinate() + "," +
+                        testPiece2.getYcoordinate() + ")" + "\n");
 
                 //captures the enemy Piece
-                firstInstance.capturepiece(testPiece,-1, 1);
+                firstInstance.capturepiece(testPiece,1, firstInstance.p2Pieces,1,1);
                 gameState.append("Player 2 piece captured by Player 1"+ "\n");
 
                 //prints events in first instance, including the board
                 gameState.append("\nAfter first instance: \n" + firstInstance.toString() + "\n");
-                firstInstance.printBoard(board2);
+                firstInstance.printBoard(board2, firstInstance.p1Pieces, firstInstance.p2Pieces);
 
                 //new GameState
                 GameState thirdInstance = new GameState();
