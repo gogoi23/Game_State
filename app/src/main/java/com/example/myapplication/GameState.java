@@ -197,8 +197,8 @@ public class GameState {
             for(int j = 0; j<board[i].length; j++){
                 if(board[i][j] != null) {
                     if (board[i][j].getPlayer() == 1) {
+                        p1count++;
                         if (board[i][j].getAlive() == true) {
-                            p1count++;
                             if (board[i][j].getKing() == true) {
                                 returnValue =
                                         returnValue + "P1 piece " +
@@ -217,14 +217,14 @@ public class GameState {
                 }
             }
         }
-        returnValue = returnValue + "P1 has " + p1count + " pieces remaining\n";
+        returnValue = returnValue + "P1 has " + p1NumPieces + " pieces remaining\n";
 
         for(int i= 0; i<board.length; i++){
             for(int j = 0; j<board[i].length; j++){
                 if(board[i][j] != null) {
                     if (board[i][j].getPlayer() == 2) {
+                        p2count++;
                         if (board[i][j].getAlive() == true) {
-                            p2count++;
                             if (board[i][j].getKing() == true) {
                                 returnValue =
                                         returnValue + "P2 piece " +
@@ -242,7 +242,7 @@ public class GameState {
                 }
             }
         }
-        returnValue = returnValue + "P2 has " + p2count + " pieces remaining\n";
+        returnValue = returnValue + "P2 has " + p2NumPieces + " pieces remaining\n";
 
         // determine whose turn it is
         if(turn == 1) {
@@ -606,12 +606,14 @@ public class GameState {
     }
 
     public void setPiece(int oldRow, int oldCol, int newRow, int newCol){
-        if(!inBounds(newRow, newCol)){
+        if(!inBounds(newRow, newCol)) {
             return;
         }
-        Piece tmp = board[oldRow][oldCol];
-        board[oldRow][oldCol] = board[newRow][newCol];
-        board[newRow][newCol] = tmp;
+        if(isEmpty(newRow,newCol)) {
+            Piece tmp = board[oldRow][oldCol];
+            board[oldRow][oldCol] = board[newRow][newCol];
+            board[newRow][newCol] = tmp;
+        }
     }
 }
 

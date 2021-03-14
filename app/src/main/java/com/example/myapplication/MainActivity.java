@@ -75,8 +75,8 @@ public class MainActivity extends AppCompatActivity {
                         firstInstance.getCol(testPiece2) + ")" + "\n");
 
                 //captures the enemy Piece
-                firstInstance.capturepiece(testPiece,-1, 1);
-                gameState.append("Player 2 piece captured by Player 1"+ "\n");
+                /*firstInstance.capturepiece(testPiece,-1, 1);
+                gameState.append("Player 2 piece captured by Player 1"+ "\n");*/
 
                 //prints events in first instance, including the board
                 gameState.append("\nAfter first instance: \n" + firstInstance.toString() + "\n");
