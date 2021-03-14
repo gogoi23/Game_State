@@ -9,50 +9,57 @@
 package com.example.myapplication;
 
 public class Piece {
-    private int xCord;//not needed
-    private int yCord;//not needed
+    //private int xCord;//not needed
+    //private int yCord;//not needed
     private boolean isKing;
     private boolean isAlive;
-    //variable for player num or owner
+    //variable for player num or owner; can only be 1 or 2
+    private int player;
 
-    public Piece(int xCord,int yCord){
-        this.xCord = xCord;
-        this.yCord = yCord;
+    public Piece(int player){
+        //this.xCord = xCord;
+        //this.yCord = yCord;
+        if(player == 1 || player == 2) {
+            this.player = player;
+        }
         this.isAlive = true;
         this.isKing = false;
     }
 
     public Piece(Piece p){
-        this.xCord = p.xCord;
-        this.yCord = p.yCord;
+        //this.xCord = p.xCord;
+        //this.yCord = p.yCord;
+        if(p.player == 1 || p.player == 2) {
+            this.player = p.player;
+        }
         this.isAlive = p.isAlive;
         this.isKing = p.isKing;
     }
 
-    public void setCoordinates(int xCord,int yCord){
+    /*public void setCoordinates(int xCord,int yCord){
         this.xCord = xCord;
         this.yCord = yCord;
-    }
+    }*/
 
     public String toString(){
         String returnValue = "";
-        returnValue = returnValue+"Xcord = " + this.xCord;
-        returnValue = returnValue + "\nYcord = " + this.yCord;
+        //returnValue = returnValue+"Xcord = " + this.xCord;
+        //returnValue = returnValue + "\nYcord = " + this.yCord;
         returnValue = returnValue + "\nIs Alive = " + this.isAlive;
         returnValue = returnValue + "\nIs King = " + this.isKing;
         return returnValue;
     }
 
-    public int getXcoordinate(){
+    /*public int getXcoordinate(){
         return this.xCord;
     }
 
     public int getYcoordinate(){
         return this.yCord;
-    }
+    }*/
 
     public boolean getAlive(){
-        return isAlive;
+        return this.isAlive;
     }
 
     public void setAlive(boolean isAlive) {
@@ -64,4 +71,6 @@ public class Piece {
     public void setKing(boolean king) {
         this.isKing = king;
     }
+
+    public int getPlayer() { return player; }
 }
