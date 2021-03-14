@@ -14,8 +14,8 @@ import java.util.ArrayList;
 public class GameState {
 
     // instance variables
-    public Piece[] p1Pieces;//if the grid is pieces this might not be needed
-    public Piece[] p2Pieces;//if the grid is pieces this might not be needed
+    //public Piece[] p1Pieces;//if the grid is pieces this might not be needed
+    //public Piece[] p2Pieces;//if the grid is pieces this might not be needed
     public int p1NumPieces;
     public int p2NumPieces;
     public int turn;
@@ -323,6 +323,12 @@ public class GameState {
                     if (isEmpty(getRow(piece1) + xDir, getCol(piece1) + yDir)){
                         //kills the enemy pieces and sets the return value to true
                         piece1.setAlive(false);
+                        if(piece1.getPlayer() == 1){
+                            p1NumPieces--;
+                        }
+                        else if(piece1.getPlayer() == 2){
+                            p2NumPieces--;
+                        }
                         returnValue = true;
 
                         //moves the piece to the space ahead of the captured piece
@@ -459,9 +465,11 @@ public class GameState {
                 board2[height][lenth]="___";
                 if(board[height][lenth] != null && board[height][lenth].getPlayer() == 1){
                     P1[k] = board[height][lenth];
+                    k++;
                 }
                 if(board[height][lenth] != null && board[height][lenth].getPlayer() == 2){
                     P2[m] = board[height][lenth];
+                    m++;
                 }
             }
         }
