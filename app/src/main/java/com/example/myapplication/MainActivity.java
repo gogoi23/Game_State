@@ -15,7 +15,7 @@ import android.widget.EditText;
  * @author Aashish Anand, Anand Gogoi, Caitlin Ching, Cian Murray
  *
  * CS301A
- * @version 03/11/2021
+ * @version 03/14/2021
  */
 
 public class MainActivity extends AppCompatActivity {

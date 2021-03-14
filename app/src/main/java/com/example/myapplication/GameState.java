@@ -3,7 +3,11 @@
  * Gamestate class - initiates moves, captures, and pieces of the game
  *
  * CS301A
- * @version 03/11/2021
+ * @version 03/14/2021
+ *
+ * we decided to keep the 2 arrays because we could instantly call a piece.
+ * If we implemented an 8 by 8 2D array, we would have to go through that array
+ * every time we wanted to get info about a piece which would increase runtime.
  */
 package com.example.myapplication;
 
