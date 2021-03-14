@@ -8,6 +8,8 @@
  * we decided to keep the 2 arrays because we could instantly call a piece.
  * If we implemented an 8 by 8 2D array, we would have to go through that array
  * every time we wanted to get info about a piece which would increase runtime.
+ * With 2 arrays, the runtime to check all the pieces is n.
+ * But with an 8x8 2D array, the runtime is n^2.
  */
 package com.example.myapplication;
 
