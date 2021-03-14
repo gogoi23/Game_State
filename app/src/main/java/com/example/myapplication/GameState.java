@@ -7,6 +7,7 @@
  */
 package com.example.myapplication;
 
+import android.graphics.Bitmap;
 import android.util.Log;
 
 import java.util.ArrayList;
@@ -20,6 +21,7 @@ public class GameState {
     public int p2NumPieces;
     public int turn;
     //add grid here
+    public Bitmap[][] board; //displays the 8x8 checkerboard
 
     public GameState(){
         turn = 1;
@@ -58,7 +60,7 @@ public class GameState {
         p2Pieces[10] = new Piece(6,8);
         p2Pieces[11] = new Piece(8,8);
 
-
+        board = new Bitmap[8][8];
 
     }
 
@@ -67,6 +69,7 @@ public class GameState {
         //creates new arrays
         this.p1Pieces = new Piece[12];
         this.p2Pieces = new Piece[12];
+        this.board = new Bitmap[8][8];
 
         //copies number of pieces for each player
         this.p1NumPieces = current.p1NumPieces;
@@ -78,6 +81,12 @@ public class GameState {
         for(int i = 0;i<12;i++){
             this.p1Pieces[i] = new Piece(current.p1Pieces[i]);
             this.p2Pieces[i] = new Piece(current.p2Pieces[i]);
+        }
+
+        for(int i = 0; i < 8; i++){
+            for(int j = 0; j < 8; j++){
+                board[i][j] = current.board[i][j];
+            }
         }
     }
 
@@ -316,15 +325,22 @@ public class GameState {
 
     }
 
-    // prints board in logcat
+    /* prints board in logcat and will be used to print it on the canvas
+        by converting string to bitmap*/
     public static void printBoard(String[][] board2, Piece[] P1, Piece[] P2) {
+        //we set the board to be empty, then it will be converted to a bitmap
         for(int height=1;height<=8;height++) {
+            /*when it's converted to a bitmap, we will set every single element in the
+              Bitmap array to a square*/
             for(int lenth=1; lenth<=8;lenth++) {
                 board2[height][lenth]="___";
             }
         }
 
-
+        /*right now, these if statements set P1[n] to
+          board2[P1[n].getXcoordinate()][P1[n].getYcoordinate()]
+          A string is used to represent these pieces and when converted to a bitmap,
+          we will set it to be equal to a circle, which will be used to represent a piece*/
         if (P1[0].getAlive()==true) {
             board2[P1[0].getXcoordinate()][P1[0].getYcoordinate()]="O1_";
         }
@@ -362,6 +378,8 @@ public class GameState {
         if (P1[11].getAlive()==true) {
             board2[P1[11].getXcoordinate()][P1[11].getYcoordinate()]="O12";
         }
+
+        //same applies to P2[n]
         if (P2[0].getAlive()==true) {
             board2[P2[0].getXcoordinate()][P2[0].getYcoordinate()]="T1_";
         }
@@ -372,7 +390,6 @@ public class GameState {
             board2[P2[2].getXcoordinate()][P2[2].getYcoordinate()]="T3_";
         }
         if (P2[3].getAlive()==true) {
-
             board2[P2[3].getXcoordinate()][P2[3].getYcoordinate()]="T4_";
         }
         if (P2[4].getAlive()==true) {
@@ -400,7 +417,7 @@ public class GameState {
             board2[P2[11].getXcoordinate()][P2[11].getYcoordinate()]="T12";
         }
 
-
+        //does the actual printing of the board
         Log.e( "printBoard: ", "_________________________________" );
         Log.e( "printBoard: ","\n|   |   |   |   |   |   |   |   |");
         Log.e( "printBoard: ","\n|"+board2[1][8]+"|"+board2[2][8]+"|"+board2[3][8]+"|"+board2[4][8]+"|"+board2[5][8]+"|"+board2[6][8]+"|"+board2[7][8]+"|"+board2[8][8]+"|"+8);
