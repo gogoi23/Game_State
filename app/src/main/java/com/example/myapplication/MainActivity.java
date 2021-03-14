@@ -62,7 +62,7 @@ public class MainActivity extends AppCompatActivity {
                 gameState.append("Player " + testPiece.getPlayer() + 
                         " piece moved from (" + firstInstance.getRow(testPiece) + ","
                         + firstInstance.getCol(testPiece) + ") ");
-                firstInstance.movePiece(testPiece, 1,1);
+                firstInstance.movePiece(testPiece, -1,1);
                 gameState.append("to (" + firstInstance.getRow(testPiece) + "," +
                                     firstInstance.getCol(testPiece) + ")" + "\n");
 
@@ -70,12 +70,12 @@ public class MainActivity extends AppCompatActivity {
                 gameState.append("Player " + testPiece2.getPlayer() +
                         " piece moved from (" + firstInstance.getRow(testPiece2) + ","
                         + firstInstance.getCol(testPiece2) + ") ");
-                firstInstance.movePiece(testPiece2, -1,-1);
+                firstInstance.movePiece(testPiece2, 1,-1);
                 gameState.append("to (" + firstInstance.getRow(testPiece2) + "," +
                         firstInstance.getCol(testPiece2) + ")" + "\n");
 
                 //captures the enemy Piece
-                firstInstance.capturepiece(testPiece,1, 1);
+                firstInstance.capturepiece(testPiece,-1, 1);
                 gameState.append("Player 2 piece captured by Player 1"+ "\n");
 
                 //prints events in first instance, including the board

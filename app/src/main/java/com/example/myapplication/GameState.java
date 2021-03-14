@@ -98,7 +98,7 @@ public class GameState {
         this.board = new Piece[8][8];
         for(int row = 0; row < board.length; row++){
             for(int col = 0; col < board[row].length; col++){
-                if ((row + col) % 2 == 1) {
+                if (((row + col) % 2 == 1) && current.board[row][col] != null) {
                         this.board[row][col] = new Piece(current.board[row][col]);
                 }
             }
@@ -195,21 +195,24 @@ public class GameState {
 
         for(int i= 0; i<board.length; i++){
             for(int j = 0; j<board[i].length; j++){
-                if(board[i][j].getPlayer() == 1) {
-                    if (board[i][j].getAlive() == true) {
-                        p1count++;
-                        if (board[i][j].getKing() == true) {
-                            returnValue =
-                                    returnValue + "P1 piece " +
-                                            p1count + " is a KING, coordinates: (" + i + ", " + j +
-                                            ")\n";
+                if(board[i][j] != null) {
+                    if (board[i][j].getPlayer() == 1) {
+                        if (board[i][j].getAlive() == true) {
+                            p1count++;
+                            if (board[i][j].getKing() == true) {
+                                returnValue =
+                                        returnValue + "P1 piece " +
+                                                p1count + " is a KING, coordinates: ("
+                                                + i + ", " + j + ")\n";
+                            } else {
+                                returnValue =
+                                        returnValue + "P1 piece " + p1count +
+                                                " is alive, coordinates: (" + i + ", " + j + ")\n";
+                            }
                         } else {
-                            returnValue =
-                                    returnValue + "P1 piece " + p1count +
-                                            " is alive, coordinates: (" + i + ", " + j + ")\n";
+                            returnValue = returnValue + "P1 piece " + p1count
+                                    + " has been captured.\n";
                         }
-                    } else {
-                        returnValue = returnValue + "P1 piece " + p1count + " has been captured.\n";
                     }
                 }
             }
@@ -218,21 +221,23 @@ public class GameState {
 
         for(int i= 0; i<board.length; i++){
             for(int j = 0; j<board[i].length; j++){
-                if(board[i][j].getPlayer() == 2) {
-                    if (board[i][j].getAlive() == true) {
-                        p2count++;
-                        if (board[i][j].getKing() == true) {
-                            returnValue =
-                                    returnValue + "P2 piece " +
-                                            p2count + " is a KING, coordinates: ("
-                                            + i + ", " + j + ")\n";
+                if(board[i][j] != null) {
+                    if (board[i][j].getPlayer() == 2) {
+                        if (board[i][j].getAlive() == true) {
+                            p2count++;
+                            if (board[i][j].getKing() == true) {
+                                returnValue =
+                                        returnValue + "P2 piece " +
+                                                p2count + " is a KING, coordinates: ("
+                                                + i + ", " + j + ")\n";
+                            } else {
+                                returnValue =
+                                        returnValue + "P2 piece " + p2count +
+                                                " is alive, coordinates: (" + i + ", " + j + ")\n";
+                            }
                         } else {
-                            returnValue =
-                                    returnValue + "P2 piece " + p2count +
-                                            " is alive, coordinates: (" + i + ", " + j + ")\n";
+                            returnValue = returnValue + "P2 piece " + p2count + " has been captured.\n";
                         }
-                    } else {
-                        returnValue = returnValue + "P2 piece " + p1count + " has been captured.\n";
                     }
                 }
             }
@@ -294,7 +299,8 @@ public class GameState {
         if(piece.getPlayer() == 1) {
             for (int i = 0; i < board.length; i++) {
                 for (int j = 0; j < board[i].length; j++) {
-                    if (board[i][j].getAlive() == true && board[i][j].getPlayer() == 2) {
+                    if (board[i][j] != null && board[i][j].getAlive()
+                            && board[i][j].getPlayer() == 2) {
                         enemyPieces[k] = board[i][j];
                         k++;
                     }
@@ -304,7 +310,8 @@ public class GameState {
         else if(piece.getPlayer() == 2){
             for (int i = 0; i < board.length; i++) {
                 for (int j = 0; j < board[i].length; j++) {
-                    if (board[i][j].getAlive() == true && board[i][j].getPlayer() == 1) {
+                    if (board[i][j] != null && board[i][j].getAlive()
+                            && board[i][j].getPlayer() == 1) {
                         enemyPieces[k] = board[i][j];
                         k++;
                     }
@@ -332,7 +339,7 @@ public class GameState {
                         returnValue = true;
 
                         //moves the piece to the space ahead of the captured piece
-                        setPiece(piece, getRow(piece1) + xDir, getCol(piece1) + yDir);
+                        setPiece(getRow(piece), getCol(piece),getRow(piece1) + xDir, getCol(piece1) + yDir);
 
                     }
                 }
@@ -367,7 +374,7 @@ public class GameState {
         }
         for(int i=0; i<board.length; i++){
             for(int j = 0; j<board[i].length; j++){
-                if(board[i][j].equals(piece)){
+                if(board[i][j] == piece){
                     return true;
                 }
             }
@@ -393,10 +400,6 @@ public class GameState {
         if(!findPiece(piece)){
             return false;
         }
-        //checks if the piece is in bounds
-        if(!inBounds(getRow(piece),getCol(piece))){
-            return false;
-        }
 
         //this if statement checks that the user has not tried to move more than one space
         if(inRange(xDir,yDir)){
@@ -419,7 +422,7 @@ public class GameState {
 
                 //if all the conditions are right the piece will move.
                 else {
-                    setPiece(piece, getRow(piece)+xDir,getCol(piece)+yDir);
+                    setPiece(getRow(piece), getCol(piece),getRow(piece)+xDir,getCol(piece)+yDir);
 
                     //will turn to player 1's pieces king if the piece reaches the other side of the board
                     if(turn == 1){
@@ -456,122 +459,130 @@ public class GameState {
 
     // prints board in logcat
     public void printBoard(String[][] board2) {
-        Piece[] P1 = new Piece[12];
-        Piece[] P2 = new Piece[12];
+        Piece[] P1 = new Piece[p1NumPieces];
+        Piece[] P2 = new Piece[p2NumPieces];
         int k = 0;
         int m = 0;
-        for(int height=0;height<7;height++) {
-            for(int lenth=0; lenth<7;lenth++) {
+        for(int height=0;height<8;height++) {
+            for(int lenth=0; lenth<8;lenth++) {
                 board2[height][lenth]="___";
                 if(board[height][lenth] != null && board[height][lenth].getPlayer() == 1){
-                    P1[k] = board[height][lenth];
-                    k++;
+                    if(k<p1NumPieces) {
+                        P1[k] = board[height][lenth];
+                        k++;
+                    }
                 }
                 if(board[height][lenth] != null && board[height][lenth].getPlayer() == 2){
-                    P2[m] = board[height][lenth];
-                    m++;
+                    if(m<p2NumPieces) {
+                        P2[m] = board[height][lenth];
+                        m++;
+                    }
                 }
             }
         }
         
-        if (P1[0].getAlive()==true) {
+        if (P1[0] != null && P1[0].getAlive()) {
             board2[getRow(P1[0])][getCol(P1[0])]="O1_";
         }
-
-        if (P1[1].getAlive()==true) {
+        if (P1[1] != null && P1[1].getAlive()) {
             board2[getRow(P1[1])][getCol(P1[1])]="O2_";
         }
-        if (P1[2].getAlive()==true) {
+        if (P1[2] != null && P1[2].getAlive()) {
             board2[getRow(P1[2])][getCol(P1[2])]="O3_";
         }
-        if (P1[3].getAlive()==true) {
+        if (P1[3] != null && P1[3].getAlive()) {
             board2[getRow(P1[3])][getCol(P1[3])]="O4_";
         }
-        if (P1[4].getAlive()==true) {
+        if (P1[4] != null && P1[4].getAlive()) {
             board2[getRow(P1[4])][getCol(P1[4])]="O5_";
         }
-        if (P1[5].getAlive()==true) {
+        if (P1[5] != null && P1[5].getAlive()) {
             board2[getRow(P1[5])][getCol(P1[5])]="O6_";
         }
-        if (P1[6].getAlive()==true) {
+        if (P1[6] != null && P1[6].getAlive()) {
             board2[getRow(P1[6])][getCol(P1[6])]="O7_";
         }
-        if (P1[7].getAlive()==true) {
+        if (P1[7] != null && P1[7].getAlive()) {
             board2[getRow(P1[7])][getCol(P1[7])]="O8_";
         }
-        if (P1[8].getAlive()==true) {
+        if (P1[8] != null && P1[8].getAlive()) {
             board2[getRow(P1[8])][getCol(P1[8])]="O9_";
         }
-        if (P1[9].getAlive()==true) {
+        if (P1[9] != null && P1[9].getAlive()) {
             board2[getRow(P1[9])][getCol(P1[9])]="O10";
         }
-        if (P1[10].getAlive()==true) {
+        if (P1[10] != null && P1[10].getAlive()) {
             board2[getRow(P1[10])][getCol(P1[10])]="O11";
         }
-        if (P1[11].getAlive()==true) {
+        if (P1[11] != null && P1[11].getAlive()) {
             board2[getRow(P1[11])][getCol(P1[11])]="O12";
         }
-        if (P2[0].getAlive()==true) {
+        if (P2[0].getAlive()) {
             board2[getRow(P2[0])][getCol(P2[0])]="T1_";
         }
-        if (P2[1].getAlive()==true) {
+        if (P2[1].getAlive()) {
             board2[getRow(P2[1])][getCol(P2[1])]="T2_";
         }
-        if (P2[2].getAlive()==true) {
+        if (P2[2].getAlive()) {
             board2[getRow(P2[2])][getCol(P2[2])]="T3_";
         }
-        if (P2[3].getAlive()==true) {
-
+        if (P2[3].getAlive()) {
             board2[getRow(P2[3])][getCol(P2[3])]="T4_";
         }
-        if (P2[4].getAlive()==true) {
+        if (P2[4].getAlive()) {
             board2[getRow(P2[4])][getCol(P2[4])]="T5_";
         }
-        if (P2[5].getAlive()==true) {
+        if (P2[5].getAlive()) {
             board2[getRow(P2[5])][getCol(P2[5])]="T6_";
         }
-        if (P2[6].getAlive()==true) {
+        if (P2[6].getAlive()) {
             board2[getRow(P2[6])][getCol(P2[6])]="T7_";
         }
-        if (P2[7].getAlive()==true) {
+        if (P2[7].getAlive()) {
             board2[getRow(P2[7])][getCol(P2[7])]="T8_";
         }
-        if (P2[8].getAlive()==true) {
+        if (P2[8].getAlive()) {
             board2[getRow(P2[8])][getCol(P2[8])]="T9_";
         }
-        if (P2[9].getAlive()==true) {
+        if (P2[9].getAlive()) {
             board2[getRow(P2[9])][getCol(P2[9])]="T10";
         }
-        if (P2[10].getAlive()==true) {
+        if (P2[10] != null && P2[10].getAlive()) {
             board2[getRow(P2[10])][getCol(P2[10])]="T11";
         }
-        if (P2[11].getAlive()==true) {
-            board2[getRow(P2[11])][getCol(P2[11])]="T12";
+        if (11 < p2NumPieces) {
+            if (P2[11] != null && P2[11].getAlive()){
+                board2[getRow(P2[11])][getCol(P2[11])] = "T12";
+            }
         }
-        Log.e( "printBoard: ","   0   1   2   3   4   5   6   7");
+
         Log.e( "printBoard: ","\n_________________________________" );
         Log.e( "printBoard: ","\n|   |   |   |   |   |   |   |   |");
-        Log.e( "printBoard: ","\n|"+board2[0][0]+"|"+board2[1][0]+"|"+board2[2][0]+"|"+board2[3][0]+"|"+board2[4][0]+"|"+board2[5][0]+"|"+board2[6][0]+"|"+board2[7][0]+"|"+0);
+        Log.e( "printBoard: ","\n|"+board2[0][0]+"|"+board2[0][1]+"|"+board2[0][2]+"|"+board2[0][3]+"|"+board2[0][4]+"|"+board2[0][5]+"|"+board2[0][6]+"|"+board2[0][7]+"|"+0);
         Log.e( "printBoard: ","\n|   |   |   |   |   |   |   |   |");
-        Log.e( "printBoard: ","\n|"+board2[0][1]+"|"+board2[1][1]+"|"+board2[2][1]+"|"+board2[3][1]+"|"+board2[4][1]+"|"+board2[5][1]+"|"+board2[6][1]+"|"+board2[7][1]+"|"+1);
+        Log.e( "printBoard: ","\n|"+board2[1][0]+"|"+board2[1][1]+"|"+board2[1][2]+"|"+board2[1][3]+"|"+board2[1][4]+"|"+board2[1][5]+"|"+board2[1][6]+"|"+board2[1][7]+"|"+1);
         Log.e( "printBoard: ","\n|   |   |   |   |   |   |   |   |");
-        Log.e( "printBoard: ","\n|"+board2[0][2]+"|"+board2[1][2]+"|"+board2[2][2]+"|"+board2[3][2]+"|"+board2[4][2]+"|"+board2[5][2]+"|"+board2[6][2]+"|"+board2[7][2]+"|"+2);
+        Log.e( "printBoard: ","\n|"+board2[2][0]+"|"+board2[2][1]+"|"+board2[2][2]+"|"+board2[2][3]+"|"+board2[2][4]+"|"+board2[2][5]+"|"+board2[2][6]+"|"+board2[2][7]+"|"+2);
         Log.e( "printBoard: ","\n|   |   |   |   |   |   |   |   |");
-        Log.e( "printBoard: ","\n|"+board2[0][3]+"|"+board2[1][3]+"|"+board2[2][3]+"|"+board2[3][3]+"|"+board2[4][3]+"|"+board2[5][3]+"|"+board2[6][3]+"|"+board2[7][3]+"|"+33);
-        Log.e( "printBoard: ", "\n|   |   |   |   |   |   |   |   |");
-        Log.e( "printBoard: ","\n|"+board2[0][4]+"|"+board2[1][4]+"|"+board2[2][4]+"|"+board2[3][4]+"|"+board2[4][4]+"|"+board2[5][4]+"|"+board2[6][4]+"|"+board2[7][4]+"|"+4);
+        Log.e( "printBoard: ","\n|"+board2[3][0]+"|"+board2[3][1]+"|"+board2[3][2]+"|"+board2[3][3]+"|"+board2[3][4]+"|"+board2[3][5]+"|"+board2[3][6]+"|"+board2[3][7]+"|"+3);
         Log.e( "printBoard: ","\n|   |   |   |   |   |   |   |   |");
-        Log.e( "printBoard: ","\n|"+board2[0][5]+"|"+board2[1][5]+"|"+board2[2][5]+"|"+board2[3][5]+"|"+board2[4][5]+"|"+board2[5][5]+"|"+board2[6][5]+"|"+board2[7][5]+"|"+5);
+        Log.e( "printBoard: ","\n|"+board2[4][0]+"|"+board2[4][1]+"|"+board2[4][2]+"|"+board2[4][3]+"|"+board2[4][4]+"|"+board2[4][5]+"|"+board2[4][6]+"|"+board2[4][7]+"|"+4);
         Log.e( "printBoard: ","\n|   |   |   |   |   |   |   |   |");
-        Log.e( "printBoard: ","\n|"+board2[0][6]+"|"+board2[1][6]+"|"+board2[2][6]+"|"+board2[3][6]+"|"+board2[4][6]+"|"+board2[5][6]+"|"+board2[6][6]+"|"+board2[7][6]+"|"+6);
+        Log.e( "printBoard: ","\n|"+board2[5][0]+"|"+board2[5][1]+"|"+board2[5][2]+"|"+board2[5][3]+"|"+board2[5][4]+"|"+board2[5][5]+"|"+board2[5][6]+"|"+board2[5][7]+"|"+5);
         Log.e( "printBoard: ","\n|   |   |   |   |   |   |   |   |");
-        Log.e( "printBoard: ","\n|"+board2[0][7]+"|"+board2[1][7]+"|"+board2[2][7]+"|"+board2[3][7]+"|"+board2[4][7]+"|"+board2[5][7]+"|"+board2[6][7]+"|"+board2[7][7]+"|"+7);
-        Log.e( "printBoard: ", "_________________________________" );
+        Log.e( "printBoard: ","\n|"+board2[6][0]+"|"+board2[6][1]+"|"+board2[6][2]+"|"+board2[6][3]+"|"+board2[6][4]+"|"+board2[6][5]+"|"+board2[6][6]+"|"+board2[6][7]+"|"+6);
+        Log.e( "printBoard: ","\n|   |   |   |   |   |   |   |   |");
+        Log.e( "printBoard: ","\n|"+board2[7][0]+"|"+board2[7][1]+"|"+board2[7][2]+"|"+board2[7][3]+"|"+board2[7][4]+"|"+board2[7][5]+"|"+board2[7][6]+"|"+board2[7][7]+"|"+7);
+        Log.e( "printBoard: ","   0   1   2   3   4   5   6   7");
     }
 
     public int getRow(Piece piece){
+        if(piece == null){
+            return -1;
+        }
+
         for(int i = 0; i<board.length; i++){
-            for(int j = 0; j<board[j].length; j++){
+            for(int j = 0; j<board[i].length; j++){
                 if(board[i][j] == piece && piece.getAlive()){
                     return i;
                 }
@@ -581,8 +592,11 @@ public class GameState {
     }
 
     public int getCol(Piece piece){
+        if(piece == null){
+            return -1;
+        }
         for(int i = 0; i<board.length; i++){
-            for(int j = 0; j<board[j].length; j++){
+            for(int j = 0; j<board[i].length; j++){
                 if(board[i][j] == piece && piece.getAlive()){
                     return j;
                 }
@@ -591,18 +605,13 @@ public class GameState {
         return -1;
     }
 
-    public void setPiece(Piece piece, int newRow, int newCol){
-        if(!findPiece(piece)){
-            return;
-        }
+    public void setPiece(int oldRow, int oldCol, int newRow, int newCol){
         if(!inBounds(newRow, newCol)){
             return;
         }
-        int oldX = getRow(piece);
-        int oldY = getCol(piece);
-        Piece tmp = board[oldX][oldY];
-        board[oldX][oldY] = board[newRow][newCol];
-        board[newRow][newCol]=tmp;
+        Piece tmp = board[oldRow][oldCol];
+        board[oldRow][oldCol] = board[newRow][newCol];
+        board[newRow][newCol] = tmp;
     }
 }
 

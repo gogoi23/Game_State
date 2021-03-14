@@ -59,7 +59,7 @@ public class Piece {
     }*/
 
     public boolean getAlive(){
-        return isAlive;
+        return this.isAlive;
     }
 
     public void setAlive(boolean isAlive) {
