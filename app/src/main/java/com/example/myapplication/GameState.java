@@ -60,7 +60,6 @@ public class GameState {
         p2Pieces[11] = new Piece(8,8);*/
 
         board = new Piece[8][8];
-
         for(int row = 0; row < board.length; row++){
             for(int col = 0; col < board[row].length; col++){
                 if(row<=2) {
@@ -71,11 +70,11 @@ public class GameState {
                 else if(row>=5) {
                     if ((row + col) % 2 == 1) {
                         board[row][col] = new Piece(1);
+
                     }
                 }
             }
         }
-
     }
 
     //deep copy constructor of GameState
@@ -466,15 +465,17 @@ public class GameState {
         for(int height=0;height<8;height++) {
             for(int lenth=0; lenth<8;lenth++) {
                 board2[height][lenth]="___";
-                if(board[height][lenth] != null && board[height][lenth].getPlayer() == 1){
-                    if(k<p1NumPieces) {
+                if(board[height][lenth] != null && board[height][lenth].getPlayer() == 1) {
+                    if (k < p1NumPieces) {
                         P1[k] = board[height][lenth];
+                        Log.e("player 1","P1[" + k + "]: " + P1[k].toString());
                         k++;
                     }
                 }
-                if(board[height][lenth] != null && board[height][lenth].getPlayer() == 2){
-                    if(m<p2NumPieces) {
+                if(board[height][lenth] != null && board[height][lenth].getPlayer() == 2) {
+                    if (m < p2NumPieces) {
                         P2[m] = board[height][lenth];
+                        Log.e("player 2","P2[" + m + "]: " + P2[m].toString());
                         m++;
                     }
                 }

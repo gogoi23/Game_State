@@ -39,7 +39,7 @@ public class Piece {
     /*public void setCoordinates(int xCord,int yCord){
         this.xCord = xCord;
         this.yCord = yCord;
-    }
+    }*/
 
     public String toString(){
         String returnValue = "";
@@ -50,7 +50,7 @@ public class Piece {
         return returnValue;
     }
 
-    public int getXcoordinate(){
+    /*public int getXcoordinate(){
         return this.xCord;
     }
 
