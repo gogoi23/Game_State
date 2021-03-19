@@ -25,6 +25,8 @@ public class MainActivity extends AppCompatActivity {
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
         setContentView(R.layout.activity_main);
 
+
+        /*
         String[][]board2 = new String[9][9];
 
 
@@ -94,6 +96,8 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
+
+         */
 
     }
 
