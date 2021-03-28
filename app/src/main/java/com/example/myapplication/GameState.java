@@ -31,7 +31,7 @@ public class GameState {
     public Piece pieceSelectedPiece;//this is the piece that is going to get moved.this was not here before
     public int turn;
     //add grid here
-    public Bitmap[][] board; //displays the 8x8 checkerboard
+    public ImageButton[][] board; //displays the 8x8 checkerboard
     TextView gameInfo;
 
 
@@ -73,7 +73,7 @@ public class GameState {
         p2Pieces[11] = new Piece(8,8,2);
 
         pieceSelectedBoolean = false;
-        board = new Bitmap[8][8];
+        board = new ImageButton[8][8];
 
     }
 
@@ -82,7 +82,7 @@ public class GameState {
         //creates new arrays
         this.p1Pieces = new Piece[12];
         this.p2Pieces = new Piece[12];
-        this.board = new Bitmap[8][8];
+        this.board = new ImageButton[8][8];
 
         //copies number of pieces for each player
         this.p1NumPieces = current.p1NumPieces;
@@ -100,7 +100,7 @@ public class GameState {
 
         for(int i = 0; i < 8; i++){
             for(int j = 0; j < 8; j++){
-                board[i][j] = Bitmap.createBitmap(current.board[i][j]);
+                board[i][j] = current.board[i][j];
             }
         }
     }
