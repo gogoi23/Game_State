@@ -474,7 +474,7 @@ public class GameState {
         //this nested forloop makes a black checker board. The if statements help with the checker pattern
         for(int height=1;height<=8;height++) {
             for(int length=1; length<=8;length++) {
-                if(height%2 == 1) {
+                /*if(height%2 == 1) {
                     if(length%2 == 1) {
                         board[length][height].setImageResource(R.drawable.red_tile);
                     }
@@ -489,6 +489,12 @@ public class GameState {
                     else{
                         board[length][height].setImageResource(R.drawable.red_tile);
                     }
+                }*/
+                if((height + length) % 2 == 0){
+                    board[length][height].setImageResource(R.drawable.red_tile);
+                }
+                else{
+                    board[length][height].setImageResource(R.drawable.white_tile);
                 }
             }
         }
