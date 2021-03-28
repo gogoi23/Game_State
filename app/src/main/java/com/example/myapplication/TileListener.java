@@ -29,17 +29,17 @@ public class TileListener implements View.OnClickListener{
         if(gameState.pieceSelectedBoolean == false){
             //this checks if they chose an empty spot
             if(gameState.isEmpty(xCord,yCord)){
-                gameInfo.setText("This tile is empty" );
+                gameInfo.setText("This tile is empty. Pick another square");
             }
             else {
                 //this checks if the piece belongs to the player
                 if (gameState.hasEnemyPieces(xCord,yCord)) {
-                    gameInfo.setText("This piece is not yours" );
+                    gameInfo.setText("This piece is not yours. Please try again.");
                 }
 
                 //if all the conditions are right the piece is chosen
                 else{
-                    gameInfo.setText("This piece can be moved. Click on the spot where you want to move it." );
+                    gameInfo.setText("This piece can be moved. Click on the spot where you want to move it.");
                     gameState.setPieceSelectedPieceAndPieceSelectedBoolean(xCord,yCord);
 
                 }
@@ -53,21 +53,26 @@ public class TileListener implements View.OnClickListener{
             //these are the distances of where the piece will move to. If they are
             //invalid it will not do anything
             int newXCord = xCord-gameState.pieceSelectedPiece.getXcoordinate();
-            int newYcord = yCord - gameState.pieceSelectedPiece.getYcoordinate();
+            int newYCord = yCord - gameState.pieceSelectedPiece.getYcoordinate();
 
             //if the player is trying to move and not capture
             if(!gameState.hasEnemyPieces(xCord,yCord)){
 
                 //if the location is valid it moves
-                if(gameState.movePiece(gameState.pieceSelectedPiece,newXCord,newYcord,gameState.turn)){
+                if(gameState.movePiece(gameState.pieceSelectedPiece,newXCord,newYCord,gameState.turn)){
                     gameState.pieceSelectedBoolean = false;//sets the piece selected back to false
                     gameState.setBoard(board);
-                    gameInfo.setText("That move was valid. Player two please choose a piece" );
+                    if(gameState.turn == 2) {
+                        gameInfo.setText("That move was valid. Player two please choose a piece");
+                    }
+                    else{
+                        gameInfo.setText("That move was valid. Player one please choose a piece");
+                    }
 
                 }
                 //Prints an error message if they can't move
                 else{
-                    gameInfo.setText("This move is invalid" );
+                    gameInfo.setText("This move is invalid. Try again.");
 
                 }
 
@@ -78,28 +83,28 @@ public class TileListener implements View.OnClickListener{
                 //player 1 capturing a piece
                 if(gameState.turn == 1) {
                     if (gameState.capturepiece(gameState.pieceSelectedPiece, gameState.turn,
-                            gameState.p2Pieces, newXCord, newYcord)) {
-                        gameInfo.setText("You have captured a piece");
+                            gameState.p2Pieces, newXCord, newYCord)) {
+                        gameInfo.setText("You have captured a piece. Player 2, it's your turn");
                         gameState.setBoard(board);
                         gameState.pieceSelectedBoolean = false;
                     }
                     //prints an error message if they are trying to capture a piece that is not valid.
                     else{
-                        gameInfo.setText("You can not capture this piece." );
+                        gameInfo.setText("You can not capture this piece. Try again.");
                     }
                 }
 
                 //player 2 capturing a piece
-                if(gameState.turn == 2){
+                else if(gameState.turn == 2){
                     if (gameState.capturepiece(gameState.pieceSelectedPiece, gameState.turn,
-                            gameState.p1Pieces, newXCord, newYcord)) {
-                        gameInfo.setText("You have captured a piece");
+                            gameState.p1Pieces, newXCord, newYCord)) {
+                        gameInfo.setText("You have captured a piece. Player 1, it's your turn.");
                         gameState.setBoard(board);
                         gameState.pieceSelectedBoolean = false;
                     }
                     //prints an error message if they are trying to capture a piece that is not valid.
                     else{
-                        gameInfo.setText("You can not capture this piece." );
+                        gameInfo.setText("You can not capture this piece. Try again.");
                     }
                 }
 
