@@ -14,12 +14,14 @@ public class Piece {
     private boolean isKing;
     private boolean isAlive;
     //variable for player num or owner;
+    private int owner;// this was not here before
 
-    public Piece(int xCord, int yCord){
+    public Piece(int xCord, int yCord, int owner){
         this.xCord = xCord;
         this.yCord = yCord;
         this.isAlive = true;
         this.isKing = false;
+        this.owner = owner;
     }
 
     public Piece(Piece p){
@@ -27,6 +29,7 @@ public class Piece {
         this.yCord = p.yCord;
         this.isAlive = p.isAlive;
         this.isKing = p.isKing;
+        this.owner = p.owner;
     }
 
     public void setCoordinates(int xCord,int yCord){

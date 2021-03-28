@@ -4,10 +4,14 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 /**
  * MainActivity: runs the game state app
@@ -25,185 +29,126 @@ public class MainActivity extends AppCompatActivity {
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
         setContentView(R.layout.activity_main);
 
+        //I made the dimensions 9 by 9 because I made set the board coordinates to be 8 by 8
+        //If the array's dimensions were 8 by 8 I would get a null pointer exceptions every time
+        //I tried to acess board[8][anything]
+        ImageButton[][] board = new ImageButton[9][9];
 
-        /*
-        String[][]board2 = new String[9][9];
+        //this is will be listening to the tiles. I made it 9 by 9 for the same reason I made the board 9 by 9
+        TileListener [][] boardListener = new TileListener[9][9];
 
+        GameState gameState = new GameState();
 
-        EditText gameState = (EditText)findViewById(R.id.stateDescription);
-
-        Button testRun = (Button)findViewById(R.id.gameStateTest);
-        testRun.setOnClickListener(new View.OnClickListener() {
+        //this button is used to let a player unchoose a piece
+        Button cancelButton = (Button)findViewById(R.id.cancelButton);
+        cancelButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                gameState.append("Welcome to Checkers.\n");
-                //new GameState
-                GameState firstInstance = new GameState();
-                //Deep copy of firstInstance
-                GameState secondInstance = new GameState(firstInstance);
-
-
-                //Add in here every method being used on firstInstance
-                //Methods to call:
-                //inRange
-                //movePiece
-                //capturePiece
-                //inBounds
-                //isEmpty
-                //toString
-                firstInstance.inBounds(2,2);
-                gameState.append("P1 is in bounds." + "\n");
-                firstInstance.isEmpty(2,2);
-                gameState.append("Space 2,2 is empty" + "\n");
-                firstInstance.inRange(1,1);
-                gameState.append("Movement is in range." + "\n");
-
-                //Pieces to test movePiece()
-                Piece testPiece = firstInstance.p1Pieces[10];
-
-                gameState.append("Player 1"  +
-                        " piece moved from (" + testPiece.getXcoordinate() + ","
-                        + testPiece.getYcoordinate() + ") ");
-                firstInstance.movePiece(testPiece, 1,1, 1);
-                gameState.append("to (" + testPiece.getXcoordinate() + "," +
-                        testPiece.getYcoordinate() + ")" + "\n");
-
-                Piece testPiece2 = firstInstance.p2Pieces[2];
-                gameState.append("Player 2" +
-                        " piece moved from (" +  testPiece2.getXcoordinate() + ","
-                        +  testPiece2.getYcoordinate() + ") ");
-                firstInstance.movePiece(testPiece2, -1,-1, 2);
-                gameState.append("to (" + testPiece2.getXcoordinate() + "," +
-                        testPiece2.getYcoordinate() + ")" + "\n");
-
-                //captures the enemy Piece
-                firstInstance.capturepiece(testPiece,1, firstInstance.p2Pieces,1,1);
-                gameState.append("Player 2 piece captured by Player 1"+ "\n");
-
-                //prints events in first instance, including the board
-                gameState.append("\nAfter first instance: \n" + firstInstance.toString() + "\n");
-                firstInstance.printBoard(board2, firstInstance.p1Pieces, firstInstance.p2Pieces);
-
-                //new GameState
-                GameState thirdInstance = new GameState();
-                //Deep copy of Third Instance
-                GameState fourthInstance = new GameState(thirdInstance);
-                if((secondInstance.toString()).equals(fourthInstance.toString()))
-                {
-                    gameState.append("After second instance: \n" + secondInstance.toString() + "\n");
-                    gameState.append("After fourth instance: \n" + fourthInstance.toString() + "\n");
-                }
-
+                gameState.pieceSelectedBoolean = false;
             }
         });
 
-         */
+        //used to display the turn/how many pieces captured etc.
+        TextView gameInfo = (TextView)findViewById(R.id.gameInfo);
+        gameInfo.setText("Player one, please choose a piece. You can choose a piece by taping it.");
 
-    }
+        //This is where I initialize all the image buttons. Their locations in the array
+        //matches the location on the board
+        board[1][1] = findViewById(R.id.tile11);
+        board[2][1] = findViewById(R.id.tile21);
+        board[3][1] = findViewById(R.id.tile31);
+        board[4][1] = findViewById(R.id.tile41);
+        board[5][1] = findViewById(R.id.tile51);
+        board[6][1] = findViewById(R.id.tile61);
+        board[7][1] = findViewById(R.id.tile71);
+        board[8][1] = findViewById(R.id.tile81);
 
-    /*
-    public static void printBoard(String[][] board2, Piece[] P1, Piece[] P2) {
-        for(int height=1;height<=8;height++) {
-            for(int lenth=1; lenth<=8;lenth++) {
-                board2[height][lenth]="___";
+        board[1][2] = findViewById(R.id.tile12);
+        board[2][2] = findViewById(R.id.tile22);
+        board[3][2] = findViewById(R.id.tile32);
+        board[4][2] = findViewById(R.id.tile42);
+        board[5][2] = findViewById(R.id.tile52);
+        board[6][2] = findViewById(R.id.tile62);
+        board[7][2] = findViewById(R.id.tile72);
+        board[8][2] = findViewById(R.id.tile82);
+
+        board[1][3] = findViewById(R.id.tile13);
+        board[2][3] = findViewById(R.id.tile23);
+        board[3][3] = findViewById(R.id.tile33);
+        board[4][3] = findViewById(R.id.tile43);
+        board[5][3] = findViewById(R.id.tile53);
+        board[6][3] = findViewById(R.id.tile63);
+        board[7][3] = findViewById(R.id.tile73);
+        board[8][3] = findViewById(R.id.tile83);
+
+        board[1][4] = findViewById(R.id.tile14);
+        board[2][4] = findViewById(R.id.tile24);
+        board[3][4] = findViewById(R.id.tile34);
+        board[4][4] = findViewById(R.id.tile44);
+        board[5][4] = findViewById(R.id.tile54);
+        board[6][4] = findViewById(R.id.tile64);
+        board[7][4] = findViewById(R.id.tile74);
+        board[8][4] = findViewById(R.id.tile84);
+
+        board[1][5] = findViewById(R.id.tile15);
+        board[2][5] = findViewById(R.id.tile25);
+        board[3][5] = findViewById(R.id.tile35);
+        board[4][5] = findViewById(R.id.tile45);
+        board[5][5] = findViewById(R.id.tile55);
+        board[6][5] = findViewById(R.id.tile65);
+        board[7][5] = findViewById(R.id.tile75);
+        board[8][5] = findViewById(R.id.tile85);
+
+        board[1][6] = findViewById(R.id.tile16);
+        board[2][6] = findViewById(R.id.tile26);
+        board[3][6] = findViewById(R.id.tile36);
+        board[4][6] = findViewById(R.id.tile46);
+        board[5][6] = findViewById(R.id.tile56);
+        board[6][6] = findViewById(R.id.tile66);
+        board[7][6] = findViewById(R.id.tile76);
+        board[8][6] = findViewById(R.id.tile86);
+
+        board[1][6] = findViewById(R.id.tile16);
+        board[2][6] = findViewById(R.id.tile26);
+        board[3][6] = findViewById(R.id.tile36);
+        board[4][6] = findViewById(R.id.tile46);
+        board[5][6] = findViewById(R.id.tile56);
+        board[6][6] = findViewById(R.id.tile66);
+        board[7][6] = findViewById(R.id.tile76);
+        board[8][6] = findViewById(R.id.tile86);
+
+        board[1][7] = findViewById(R.id.tile17);
+        board[2][7] = findViewById(R.id.tile27);
+        board[3][7] = findViewById(R.id.tile37);
+        board[4][7] = findViewById(R.id.tile47);
+        board[5][7] = findViewById(R.id.tile57);
+        board[6][7] = findViewById(R.id.tile67);
+        board[7][7] = findViewById(R.id.tile77);
+        board[8][7] = findViewById(R.id.tile87);
+
+        board[1][8] = findViewById(R.id.tile18);
+        board[2][8] = findViewById(R.id.tile28);
+        board[3][8] = findViewById(R.id.tile38);
+        board[4][8] = findViewById(R.id.tile48);
+        board[5][8] = findViewById(R.id.tile58);
+        board[6][8] = findViewById(R.id.tile68);
+        board[7][8] = findViewById(R.id.tile78);
+        board[8][8] = findViewById(R.id.tile88);
+
+        gameState.setBoard(board);
+
+
+
+        for(int y = 1; y<9 ; y++){
+            for(int x = 1; x<9 ; x++){
+                boardListener[x][y] = new TileListener(x,y,gameState,gameInfo,board);
+                board[x][y].setOnClickListener(boardListener[x][y]);
             }
         }
 
 
-        if (P1[0].getAlive()==true) {
-            board2[P1[0].getXcoordinate()][P1[0].getYcoordinate()]="O1_";
-        }
-
-        if (P1[1].getAlive()==true) {
-            board2[P1[1].getXcoordinate()][P1[1].getYcoordinate()]="O2_";
-        }
-        if (P1[2].getAlive()==true) {
-            board2[P1[2].getXcoordinate()][P1[2].getYcoordinate()]="O3_";
-        }
-        if (P1[3].getAlive()==true) {
-            board2[P1[3].getXcoordinate()][P1[3].getYcoordinate()]="O4_";
-        }
-        if (P1[4].getAlive()==true) {
-            board2[P1[4].getXcoordinate()][P1[4].getYcoordinate()]="O5_";
-        }
-        if (P1[5].getAlive()==true) {
-            board2[P1[5].getXcoordinate()][P1[5].getYcoordinate()]="O6_";
-        }
-        if (P1[6].getAlive()==true) {
-            board2[P1[6].getXcoordinate()][P1[6].getYcoordinate()]="O7_";
-        }
-        if (P1[7].getAlive()==true) {
-            board2[P1[7].getXcoordinate()][P1[7].getYcoordinate()]="O8_";
-        }
-        if (P1[8].getAlive()==true) {
-            board2[P1[8].getXcoordinate()][P1[8].getYcoordinate()]="O9_";
-        }
-        if (P1[9].getAlive()==true) {
-            board2[P1[9].getXcoordinate()][P1[9].getYcoordinate()]="O10";
-        }
-        if (P1[10].getAlive()==true) {
-            board2[P1[10].getXcoordinate()][P1[10].getYcoordinate()]="O11";
-        }
-        if (P1[11].getAlive()==true) {
-            board2[P1[11].getXcoordinate()][P1[11].getYcoordinate()]="O12";
-        }
-        if (P2[0].getAlive()==true) {
-            board2[P2[0].getXcoordinate()][P2[0].getYcoordinate()]="T1_";
-        }
-        if (P2[1].getAlive()==true) {
-            board2[P2[1].getXcoordinate()][P2[1].getYcoordinate()]="T2_";
-        }
-        if (P2[2].getAlive()==true) {
-            board2[P2[2].getXcoordinate()][P2[2].getYcoordinate()]="T3_";
-        }
-        if (P2[3].getAlive()==true) {
-
-            board2[P2[3].getXcoordinate()][P2[3].getYcoordinate()]="T4_";
-        }
-        if (P2[4].getAlive()==true) {
-            board2[P2[4].getXcoordinate()][P2[4].getYcoordinate()]="T5_";
-        }
-        if (P2[5].getAlive()==true) {
-            board2[P2[5].getXcoordinate()][P2[5].getYcoordinate()]="T6_";
-        }
-        if (P2[6].getAlive()==true) {
-            board2[P2[6].getXcoordinate()][P2[6].getYcoordinate()]="T7_";
-        }
-        if (P2[7].getAlive()==true) {
-            board2[P2[7].getXcoordinate()][P2[7].getYcoordinate()]="T8_";
-        }
-        if (P2[8].getAlive()==true) {
-            board2[P2[8].getXcoordinate()][P2[8].getYcoordinate()]="T9_";
-        }
-        if (P2[9].getAlive()==true) {
-            board2[P2[9].getXcoordinate()][P2[9].getYcoordinate()]="T10";
-        }
-        if (P2[10].getAlive()==true) {
-            board2[P2[10].getXcoordinate()][P2[10].getYcoordinate()]="T11";
-        }
-        if (P2[11].getAlive()==true) {
-            board2[P2[11].getXcoordinate()][P2[11].getYcoordinate()]="T12";
-        }
+    }
 
 
-        Log.e( "printBoard: ", "_________________________________" );
-        Log.e( "printBoard: ","\n|   |   |   |   |   |   |   |   |");
-        Log.e( "printBoard: ","\n|"+board2[1][8]+"|"+board2[2][8]+"|"+board2[3][8]+"|"+board2[4][8]+"|"+board2[5][8]+"|"+board2[6][8]+"|"+board2[7][8]+"|"+board2[8][8]+"|"+8);
-        Log.e( "printBoard: ","\n|   |   |   |   |   |   |   |   |");
-        Log.e( "printBoard: ","\n|"+board2[1][7]+"|"+board2[2][7]+"|"+board2[3][7]+"|"+board2[4][7]+"|"+board2[5][7]+"|"+board2[6][7]+"|"+board2[7][7]+"|"+board2[8][7]+"|"+7);
-        Log.e( "printBoard: ","\n|   |   |   |   |   |   |   |   |");
-        Log.e( "printBoard: ","\n|"+board2[1][6]+"|"+board2[2][6]+"|"+board2[3][6]+"|"+board2[4][6]+"|"+board2[5][6]+"|"+board2[6][6]+"|"+board2[7][6]+"|"+board2[8][6]+"|"+6);
-        Log.e( "printBoard: ","\n|   |   |   |   |   |   |   |   |");
-        Log.e( "printBoard: ","\n|"+board2[1][5]+"|"+board2[2][5]+"|"+board2[3][5]+"|"+board2[4][5]+"|"+board2[5][5]+"|"+board2[6][5]+"|"+board2[7][5]+"|"+board2[8][5]+"|"+5);
-        Log.e( "printBoard: ", "\n|   |   |   |   |   |   |   |   |");
-        Log.e( "printBoard: ","\n|"+board2[1][4]+"|"+board2[2][4]+"|"+board2[3][4]+"|"+board2[4][4]+"|"+board2[5][4]+"|"+board2[6][4]+"|"+board2[7][4]+"|"+board2[8][4]+"|"+4);
-        Log.e( "printBoard: ","\n|   |   |   |   |   |   |   |   |");
-        Log.e( "printBoard: ","\n|"+board2[1][3]+"|"+board2[2][3]+"|"+board2[3][3]+"|"+board2[4][3]+"|"+board2[5][3]+"|"+board2[6][3]+"|"+board2[7][3]+"|"+board2[8][3]+"|"+3);
-        Log.e( "printBoard: ","\n|   |   |   |   |   |   |   |   |");
-        Log.e( "printBoard: ","\n|"+board2[1][2]+"|"+board2[2][2]+"|"+board2[3][2]+"|"+board2[4][2]+"|"+board2[5][2]+"|"+board2[6][2]+"|"+board2[7][2]+"|"+board2[8][2]+"|"+2);
-        Log.e( "printBoard: ","\n|   |   |   |   |   |   |   |   |");
-        Log.e( "printBoard: ","\n|"+board2[1][1]+"|"+board2[2][1]+"|"+board2[3][1]+"|"+board2[4][1]+"|"+board2[5][1]+"|"+board2[6][1]+"|"+board2[7][1]+"|"+board2[8][1]+"|"+1);
-        Log.e( "printBoard: ","\n  1   2   3   4   5   6   7   8");
-    } */
 
 }

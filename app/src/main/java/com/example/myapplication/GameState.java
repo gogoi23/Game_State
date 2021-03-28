@@ -15,6 +15,8 @@ package com.example.myapplication;
 
 import android.graphics.Bitmap;
 import android.util.Log;
+import android.widget.ImageButton;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 
@@ -25,9 +27,13 @@ public class GameState {
     public Piece[] p2Pieces;//if the grid is pieces this might not be needed
     public int p1NumPieces;
     public int p2NumPieces;
+    public boolean pieceSelectedBoolean;//this determines if a piece has been selected yet. It was not here before
+    public Piece pieceSelectedPiece;//this is the piece that is going to get moved.this was not here before
     public int turn;
     //add grid here
     public Bitmap[][] board; //displays the 8x8 checkerboard
+    TextView gameInfo;
+
 
     public GameState(){
         turn = 1;
@@ -38,34 +44,35 @@ public class GameState {
         p1Pieces = new Piece[12];
 
 
-        p1Pieces[0] = new Piece(1,1);
-        p1Pieces[1] = new Piece(3,1);
-        p1Pieces[2] = new Piece(5,1);
-        p1Pieces[3] = new Piece(7,1);
-        p1Pieces[4] = new Piece(2,2);
-        p1Pieces[5] = new Piece(4,2);
-        p1Pieces[6] = new Piece(6,2);
-        p1Pieces[7] = new Piece(8,2);
-        p1Pieces[8] = new Piece(7,3);
-        p1Pieces[9] = new Piece(5,3);
-        p1Pieces[10] = new Piece(3,3);
-        p1Pieces[11] = new Piece(1,3);
+        p1Pieces[0] = new Piece(1,1,1);
+        p1Pieces[1] = new Piece(3,1,1);
+        p1Pieces[2] = new Piece(5,1,1);
+        p1Pieces[3] = new Piece(7,1,1);
+        p1Pieces[4] = new Piece(2,2,1);
+        p1Pieces[5] = new Piece(4,2,1);
+        p1Pieces[6] = new Piece(6,2,1);
+        p1Pieces[7] = new Piece(8,2,1);
+        p1Pieces[8] = new Piece(7,3,1);
+        p1Pieces[9] = new Piece(5,3,1);
+        p1Pieces[10] = new Piece(3,3,1);
+        p1Pieces[11] = new Piece(1,3,1);
 
         // p2 starting coordinates
         p2Pieces = new Piece[12];
-        p2Pieces[0] = new Piece(2,6);
-        p2Pieces[1] = new Piece(4,6);
-        p2Pieces[2] = new Piece(6,6);
-        p2Pieces[3]= new Piece(8,6);
-        p2Pieces[4] = new Piece(1,7);
-        p2Pieces[5] = new Piece(3,7);
-        p2Pieces[6] = new Piece(5,7);
-        p2Pieces[7] = new Piece(7,7);
-        p2Pieces[8] = new Piece(2,8);
-        p2Pieces[9] = new Piece(4,8);
-        p2Pieces[10] = new Piece(6,8);
-        p2Pieces[11] = new Piece(8,8);
+        p2Pieces[0] = new Piece(2,6,2);
+        p2Pieces[1] = new Piece(4,6,2);
+        p2Pieces[2] = new Piece(6,6,2);
+        p2Pieces[3]= new Piece(8,6,2);
+        p2Pieces[4] = new Piece(1,7,2);
+        p2Pieces[5] = new Piece(3,7,2);
+        p2Pieces[6] = new Piece(5,7,2);
+        p2Pieces[7] = new Piece(7,7,2);
+        p2Pieces[8] = new Piece(2,8,2);
+        p2Pieces[9] = new Piece(4,8,2);
+        p2Pieces[10] = new Piece(6,8,2);
+        p2Pieces[11] = new Piece(8,8,2);
 
+        pieceSelectedBoolean = false;
         board = new Bitmap[8][8];
 
     }
@@ -80,8 +87,10 @@ public class GameState {
         //copies number of pieces for each player
         this.p1NumPieces = current.p1NumPieces;
         this.p2NumPieces = current.p2NumPieces;
-
         this.turn = current.turn; //copies number indicating whose turn it is
+
+        this.pieceSelectedPiece = new Piece(current.pieceSelectedPiece);
+        this.pieceSelectedBoolean = current.pieceSelectedBoolean;
 
         //storing the current pieces in the new arrays
         for(int i = 0;i<12;i++){
@@ -214,23 +223,38 @@ public class GameState {
             return false;
         }
 
-        //checks if player one is trying to capture a piece behind it. If so, it makes sure it's a king
+        //checks if player two is trying to capture a piece behind it. If so, it makes sure it's a king
         if(id == 2 && yDir>1 && !piece.getKing()){
+
             return false;
         }
 
+
+
         //runs through all the enemy pieces
         for(Piece piece1 : enemyPieces ){
+
             //makes sure a dead pieces isn't being captured
             if(piece.getAlive()) {
+                Log.e("capturepiece: ", ""+piece1);
                 //makes checks if any enemy pieces is in a position to be captured by piece
                 if (piece.getXcoordinate() + xDir == piece1.getXcoordinate()
                         && piece.getYcoordinate() +yDir == piece1.getYcoordinate()) {
+
                     //makes sure the space ahead of the the capture pieces is empty
-                    if (isEmpty(piece1.getXcoordinate() + xDir, piece1.getYcoordinate() + yDir)) {
+                    if (isEmpty(piece1.getXcoordinate() + xDir, piece1.getYcoordinate() + yDir) &&
+                    inBounds(piece1.getXcoordinate() + xDir, piece1.getYcoordinate() + yDir)) {
                         //kills the pieces and sets the return value to true
                         piece1.setAlive(false);
                         returnValue = true;
+
+                        if(piece.getYcoordinate() == 8 && turn == 1){
+                            piece.setKing(true);
+                        }
+
+                        if(piece.getYcoordinate() == 1 && turn == 2){
+                            piece.setKing(true);
+                        }
 
                         //changes the turn number
                         piece.setCoordinates(piece1.getXcoordinate() + xDir, piece1.getYcoordinate() + yDir);
@@ -333,13 +357,13 @@ public class GameState {
 
     /* prints board in logcat and will be used to print it on the canvas
         by converting string to bitmap*/
-    public static void printBoard(String[][] board2, Piece[] P1, Piece[] P2) {
+    public static void printBoard(String[][] board2,Piece [] P1,Piece [] P2) {
         //we set the board to be empty, then it will be converted to a bitmap
         for(int height=1;height<=8;height++) {
             /*when it's converted to a bitmap, we will set every single element in the
               Bitmap array to a square*/
-            for(int lenth=1; lenth<=8;lenth++) {
-                board2[height][lenth]="___";
+            for(int length=1; length<=8;length++) {
+                board2[height][length]="___";
             }
         }
 
@@ -442,6 +466,110 @@ public class GameState {
         Log.e( "printBoard: ","\n|   |   |   |   |   |   |   |   |");
         Log.e( "printBoard: ","\n|"+board2[1][1]+"|"+board2[2][1]+"|"+board2[3][1]+"|"+board2[4][1]+"|"+board2[5][1]+"|"+board2[6][1]+"|"+board2[7][1]+"|"+board2[8][1]+"|"+1);
         Log.e( "printBoard: ","\n  1   2   3   4   5   6   7   8");
+    }
+
+    //this sets the board and displays all the locations of the coordinates
+    //this method was not here before we turned it in.
+    public void setBoard(ImageButton[][] board){
+        //this nested forloop makes a black checker board. The if statements help with the checker pattern
+        for(int height=1;height<=8;height++) {
+            for(int length=1; length<=8;length++) {
+                if(height%2 == 1) {
+                    if(length%2 == 1) {
+                        board[length][height].setImageResource(R.drawable.red_tile);
+                    }
+                    else{
+                        board[length][height].setImageResource(R.drawable.white_tile);
+                    }
+                }
+                else{
+                    if(height%2 == 1){
+                        board[length][height].setImageResource(R.drawable.white_tile);
+                    }
+                    else{
+                        board[length][height].setImageResource(R.drawable.red_tile);
+                    }
+                }
+            }
+        }
+
+        //this sets all of player ones pieces on the map.
+        for(Piece piece :  p1Pieces){
+            if(piece.getAlive()) {
+                board[piece.getXcoordinate()][piece.getYcoordinate()].setImageResource(R.drawable.black_piece);
+            }
+        }
+
+        for(Piece piece :  p2Pieces){
+            if(piece.getAlive()) {
+                board[piece.getXcoordinate()][piece.getYcoordinate()].setImageResource(R.drawable.red_piece);
+            }
+        }
+    }
+
+    //checks if a location has enemy pieces.
+    //if it is player one's turn and the x and y location have player 2 pieces it return true;
+    //other wise it returns false and vice versa if it player 2's turn
+    //this was not here before
+    public boolean hasEnemyPieces(int xLocation,int yLocation){
+        boolean returnValue = false;
+        if(turn == 1) {
+            for (Piece piece : p2Pieces) {
+                if (piece.getXcoordinate() == xLocation && piece.getYcoordinate() == yLocation
+                        && piece.getAlive()) {
+                    returnValue = true;
+                }
+            }
+        }
+        else{
+            for (Piece piece : p1Pieces) {
+                if (piece.getXcoordinate() == xLocation && piece.getYcoordinate() == yLocation
+                        && piece.getAlive()) {
+                    returnValue = true;
+                }
+            }
+        }
+        return returnValue;
+
+    }
+
+    //this sets the pieceSelectedPiece and boolean
+    //This method is used for the player to select a piece. It does not do any error checking
+    // This is becuase this method is only called after extensive error checking.
+    //this was not here before
+    public void setPieceSelectedPieceAndPieceSelectedBoolean(int xCord,int yCord){
+        int i = 0;
+        for(Piece piece : p2Pieces){
+            if(p1Pieces[i].getAlive()){
+                if(p1Pieces[i].getYcoordinate() == yCord && p1Pieces[i].getXcoordinate() == xCord){
+                    this.pieceSelectedPiece = p1Pieces[i];
+
+                }
+            }
+
+            if(piece.getAlive()){
+                if(piece.getYcoordinate() == yCord && piece.getXcoordinate() == xCord){
+                    this.pieceSelectedPiece = piece;
+                }
+            }
+            i++;
+
+        }
+        this.pieceSelectedBoolean = true;
+    }
+
+    //this returns the piece at the given coordinates
+    //if there is nothing there it returns null
+    public Piece findPiece(int xCord,int yCord){
+        for(int i = 0;i<12;i++){
+            if(p1Pieces[i].getYcoordinate() == yCord && p1Pieces[i].getXcoordinate() == xCord){
+                return p1Pieces[i];
+            }
+            else if (p2Pieces[i].getYcoordinate() == yCord && p2Pieces[i].getXcoordinate() == xCord){
+                return p2Pieces[i];
+            }
+        }
+        return null;
     }
 
 }
