@@ -502,13 +502,23 @@ public class GameState {
         //this sets all of player ones pieces on the map.
         for(Piece piece :  p1Pieces){
             if(piece.getAlive()) {
-                board[piece.getXcoordinate()][piece.getYcoordinate()].setImageResource(R.drawable.black_piece);
+                if(piece.getKing()){
+                    board[piece.getXcoordinate()-1][piece.getYcoordinate()-1].setImageResource(R.drawable.black_king);
+                }
+                else {
+                    board[piece.getXcoordinate()-1][piece.getYcoordinate()-1].setImageResource(R.drawable.black_piece);
+                }
             }
         }
 
         for(Piece piece :  p2Pieces){
             if(piece.getAlive()) {
-                board[piece.getXcoordinate()][piece.getYcoordinate()].setImageResource(R.drawable.red_piece);
+                if(piece.getKing()){
+                    board[piece.getXcoordinate()-1][piece.getYcoordinate()-1].setImageResource(R.drawable.red_king);
+                }
+                else {
+                    board[piece.getXcoordinate()-1][piece.getYcoordinate()-1].setImageResource(R.drawable.red_piece);
+                }
             }
         }
     }
