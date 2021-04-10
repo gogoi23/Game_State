@@ -503,10 +503,10 @@ public class GameState {
         for(Piece piece :  p1Pieces){
             if(piece.getAlive()) {
                 if(piece.getKing()){
-                    board[piece.getXcoordinate()-1][piece.getYcoordinate()-1].setImageResource(R.drawable.black_king);
+                    board[piece.getXcoordinate()][piece.getYcoordinate()].setImageResource(R.drawable.black_king);
                 }
                 else {
-                    board[piece.getXcoordinate()-1][piece.getYcoordinate()-1].setImageResource(R.drawable.black_piece);
+                    board[piece.getXcoordinate()][piece.getYcoordinate()].setImageResource(R.drawable.black_piece);
                 }
             }
         }
@@ -514,10 +514,10 @@ public class GameState {
         for(Piece piece :  p2Pieces){
             if(piece.getAlive()) {
                 if(piece.getKing()){
-                    board[piece.getXcoordinate()-1][piece.getYcoordinate()-1].setImageResource(R.drawable.red_king);
+                    board[piece.getXcoordinate()][piece.getYcoordinate()].setImageResource(R.drawable.red_king);
                 }
                 else {
-                    board[piece.getXcoordinate()-1][piece.getYcoordinate()-1].setImageResource(R.drawable.red_piece);
+                    board[piece.getXcoordinate()][piece.getYcoordinate()].setImageResource(R.drawable.red_piece);
                 }
             }
         }
